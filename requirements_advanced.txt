@@ -1,0 +1,27 @@
+# ==========================================================
+# REQUIREMENTS FOR ADVANCED ADMISSION AGENT
+# ==========================================================
+
+# Core AI & NLP
+python-dotenv==1.0.0
+google-genai==0.3.0
+
+# Multi-language Support
+langdetect==1.0.9
+
+# Text-to-Speech Options
+edge-tts==6.1.9                    # Free, good quality
+# elevenlabs==0.2.26               # Premium realistic voice (optional)
+
+# Phone Integration
+flask==3.0.0
+twilio==8.11.0
+
+# Optional: For voice mode (local testing)
+vosk==0.3.45
+sounddevice==0.4.6
+numpy==1.24.3
+playsound==1.3.0
+
+# Utilities
+asyncio==3.4.3

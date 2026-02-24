@@ -1,0 +1,287 @@
+{
+  "admission_procedures_detailed": {
+    "online_application": {
+      "website": "https://www.sgu.edu/admissions",
+      "steps": [
+        "Visit official website",
+        "Click on 'Apply Now'",
+        "Register with email and mobile",
+        "Fill application form with correct details",
+        "Upload required documents (PDF format)",
+        "Pay application fee online",
+        "Submit application",
+        "Note down application number"
+      ],
+      "application_fee": {
+        "general": "₹1,000",
+        "sc_st": "₹500",
+        "payment_modes": ["Credit/Debit Card", "Net Banking", "UPI"]
+      },
+      "documents_to_upload": [
+        "10th marksheet (PDF, max 2MB)",
+        "12th marksheet (PDF, max 2MB)",
+        "Entrance exam scorecard (if applicable)",
+        "Passport size photo (JPG, white background)",
+        "Signature (JPG)",
+        "Aadhar card",
+        "Caste certificate (if claiming reservation)",
+        "Domicile certificate (for state quota)"
+      ]
+    },
+    
+    "entrance_exams": {
+      "B.Tech": {
+        "accepted_exams": [
+          {
+            "exam": "JEE Main",
+            "weightage": "100%",
+            "minimum_percentile": "45 percentile for general, 40 for reserved",
+            "registration": "Apply through JEE Main official portal",
+            "exam_pattern": "Physics, Chemistry, Maths - 90 questions - 300 marks"
+          },
+          {
+            "exam": "MHT-CET",
+            "weightage": "100%",
+            "minimum_percentile": "50 percentile for general, 45 for reserved",
+            "registration": "Maharashtra state students preferred",
+            "exam_pattern": "Physics, Chemistry, Maths - 150 questions"
+          }
+        ],
+        "management_quota": {
+          "available": true,
+          "seats": "15% of total seats",
+          "minimum_requirement": "60% in 12th (no entrance exam required)",
+          "donation": "No donation, only regular fees"
+        }
+      },
+      
+      "MBA": {
+        "accepted_exams": [
+          {
+            "exam": "CAT",
+            "minimum_percentile": "50 percentile",
+            "next_round": "Group Discussion + Personal Interview"
+          },
+          {
+            "exam": "MAT",
+            "minimum_score": "400+ score",
+            "next_round": "Personal Interview"
+          },
+          {
+            "exam": "Institute Test",
+            "conducted_by": "SGU",
+            "pattern": "Aptitude + English + Logical Reasoning - 100 questions",
+            "date": "First week of June 2026",
+            "registration_fee": "₹500"
+          }
+        ],
+        "gd_pi_process": {
+          "group_discussion": {
+            "duration": "15-20 minutes",
+            "group_size": "8-10 candidates",
+            "topics": "Current affairs, business case studies"
+          },
+          "personal_interview": {
+            "duration": "20-30 minutes",
+            "panel": "3 faculty members",
+            "focus": "Academic background, career goals, general awareness"
+          }
+        }
+      },
+      
+      "M.Tech": {
+        "accepted_exams": [
+          {
+            "exam": "GATE",
+            "minimum_percentile": "40 percentile",
+            "preferred_branches": "CS, EC, Mechanical as per M.Tech specialization"
+          }
+        ],
+        "direct_admission": {
+          "criteria": "B.Tech with 60%+ from AICTE approved college",
+          "interview": "Required"
+        }
+      },
+      
+      "B.Sc": {
+        "admission_criteria": "Merit-based on 12th board marks",
+        "minimum_percentage": "50% in PCM/PCB for general, 45% for reserved",
+        "no_entrance_exam": true
+      }
+    },
+    
+    "counseling_process": {
+      "notification": "Via email and SMS to registered candidates",
+      "document_verification": {
+        "original_documents_required": [
+          "10th marksheet & certificate",
+          "12th marksheet & certificate",
+          "Entrance exam scorecard (original/printed from website)",
+          "Migration certificate (if from different board)",
+          "Transfer certificate",
+          "Leaving certificate",
+          "Aadhar card (original + 2 photocopies)",
+          "PAN card (optional)",
+          "Caste certificate (if applicable - original + 2 copies)",
+          "Income certificate (for scholarship - original)",
+          "Domicile certificate (original + 2 copies)",
+          "Gap certificate (if gap year)",
+          "Medical fitness certificate",
+          "Passport size photos (10 copies)"
+        ],
+        "verification_venue": "SGU Campus, Kolhapur",
+        "timing": "10 AM to 5 PM on counseling day"
+      },
+      "seat_allotment": {
+        "based_on": "Entrance exam rank + 12th percentage + counseling performance",
+        "category_wise_reservation": {
+          "general": "50%",
+          "obc": "30%",
+          "sc": "15%",
+          "st": "5%"
+        },
+        "preference_order": "Candidates can fill 5 choices of branch",
+        "allotment_display": "Online + notice board same day"
+      },
+      "fee_payment": {
+        "deadline": "Within 3 days of seat allotment",
+        "modes": ["DD in favor of 'Sanjay Ghodawat University'", "Online NEFT/RTGS", "Cash (at campus)"],
+        "first_installment": {
+          "B.Tech": "₹70,000 (50% of annual fees + ₹5,000 caution deposit)",
+          "MBA": "₹55,000",
+          "M.Tech": "₹57,500",
+          "B.Sc": "₹40,000"
+        },
+        "receipt": "Collect fee receipt immediately - keep safe"
+      },
+      "seat_confirmation": {
+        "after_fee_payment": "Seat confirmed - no refund on cancellation",
+        "registration": "Submit filled registration form with 2 photos",
+        "id_card": "Temporary ID card issued on same day"
+      }
+    },
+    
+    "important_dates": {
+      "2026_admission_timeline": {
+        "application_start": "May 1, 2026",
+        "application_end": "June 30, 2026",
+        "entrance_test_date": "July 5-10, 2026 (for institute tests)",
+        "result_declaration": "July 15, 2026",
+        "counseling_round_1": "July 20-25, 2026",
+        "counseling_round_2": "August 1-5, 2026",
+        "counseling_round_3": "August 10-15, 2026 (spot admission)",
+        "last_date_admission": "August 31, 2026",
+        "classes_start": "August 1, 2026 (for early admitted)",
+        "official_session_start": "September 1, 2026"
+      }
+    },
+    
+    "reservation_benefits": {
+      "sc_st_candidates": {
+        "fee_concession": "50% fee waiver from govt. scheme (apply separately)",
+        "reserved_seats": "20% seats reserved",
+        "relaxation": "5% marks relaxation in eligibility"
+      },
+      "obc_candidates": {
+        "reserved_seats": "30% seats",
+        "relaxation": "5% marks relaxation"
+      },
+      "pwd_candidates": {
+        "reserved_seats": "3% horizontal reservation",
+        "fee_waiver": "Available through govt. schemes",
+        "facilities": "Wheelchair accessible campus, scribe facility in exams"
+      },
+      "ews_candidates": {
+        "reserved_seats": "10%",
+        "income_limit": "Family income below ₹8 lakhs per year",
+        "certificate_required": "EWS certificate from competent authority"
+      }
+    },
+    
+    "hostel_admission": {
+      "when_to_apply": "After college admission confirmation",
+      "application_process": "Separate hostel application form",
+      "documents": [
+        "Copy of college admission receipt",
+        "Aadhar card",
+        "Parent contact details",
+        "Medical certificate",
+        "Local guardian details (mandatory for outstation students)"
+      ],
+      "allotment": "First-come-first-serve basis",
+      "deadline": "August 15, 2026 (hostel opens August 25)"
+    },
+    
+    "scholarship_application": {
+      "govt_scholarships": {
+        "apply_through": "National Scholarship Portal (scholarships.gov.in)",
+        "deadline": "Within 1 month of admission",
+        "documents": "Income certificate, caste certificate, admission receipt, bank details",
+        "renewal": "Every year based on performance (>60% marks)"
+      },
+      "college_scholarships": {
+        "merit_scholarship": {
+          "criteria": "90%+ in 12th",
+          "benefit": "25% fee waiver for first year",
+          "auto_applied": "Based on marks, no separate application"
+        },
+        "sports_scholarship": {
+          "criteria": "State/National level players",
+          "benefit": "Up to 50% fee waiver",
+          "application": "Submit sports certificates during admission"
+        }
+      }
+    },
+    
+    "migration_from_other_colleges": {
+      "allowed": "Yes, for diploma holders to B.Tech 2nd year (lateral entry)",
+      "criteria": "Diploma with 60%+ in relevant branch",
+      "seats": "20% of intake reserved for lateral entry",
+      "documents_extra": "Migration certificate, diploma marksheets of all semesters"
+    }
+  },
+  
+  "fee_payment_schedule": {
+    "installment_options": {
+      "one_time_payment": {
+        "discount": "5% discount on annual fees",
+        "deadline": "Before July 31"
+      },
+      "two_installments": {
+        "first": "50% at admission",
+        "second": "50% by December 31",
+        "no_discount": true
+      },
+      "three_installments": {
+        "not_available": "Only one-time or two installments allowed"
+      }
+    },
+    "late_fee": "₹500 per week delay after deadline",
+    "fee_refund_policy": {
+      "before_session_start": "90% refund (10% processing charges)",
+      "within_15_days": "50% refund",
+      "after_15_days": "No refund"
+    }
+  },
+  
+  "contact_for_admission_queries": {
+    "admission_office": {
+      "phone": "+91-9876543210",
+      "email": "admissions@sgu.edu",
+      "timings": "9 AM to 6 PM (Mon-Sat)",
+      "location": "Administrative Block, SGU Campus"
+    },
+    "helpline_numbers": {
+      "B.Tech_queries": "+91-9876543221",
+      "MBA_queries": "+91-9876543222",
+      "hostel_queries": "+91-9876543223",
+      "scholarship_queries": "+91-9876543224"
+    },
+    "whatsapp_support": "+91-9876543210 (text only)",
+    "social_media": {
+      "instagram": "@sgu_admissions",
+      "facebook": "SGU Official",
+      "youtube": "Virtual campus tour available"
+    }
+  }
+}

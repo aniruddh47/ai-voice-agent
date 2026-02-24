@@ -1,0 +1,262 @@
+{
+  "hostel_detailed": {
+    "boys_hostel": {
+      "name": "SGU Boys Hostel",
+      "total_capacity": 500,
+      "room_types": {
+        "triple_sharing": {
+          "count": 150,
+          "rent_per_student": "₹60,000 per year",
+          "facilities": ["Bed", "Study table", "Chair", "Cupboard", "Fan", "Light"]
+        }
+      },
+      "amenities": [
+        "24/7 WiFi (100 Mbps)",
+        "Common room with TV",
+        "Indoor games room (Table tennis, Carrom)",
+        "Gym facility",
+        "Reading room",
+        "Laundry service (paid)",
+        "Hot water facility",
+        "Backup power"
+      ],
+      "mess_details": {
+        "meal_plan": "4 meals per day (Breakfast, Lunch, Evening snacks, Dinner)",
+        "menu_type": "Pure vegetarian",
+        "menu_sample": {
+          "breakfast": ["Poha", "Upma", "Idli-Sambhar", "Bread-Butter-Jam", "Tea/Coffee"],
+          "lunch": ["3 Chapatis", "Rice", "Dal", "Vegetable", "Salad", "Buttermilk"],
+          "evening": ["Tea/Coffee", "Vada Pav/Samosa/Bhaji"],
+          "dinner": ["3 Chapatis", "Rice", "Dal", "Vegetable", "Sweet dish (sometimes)"]
+        },
+        "special_menu": "Festival special food on occasions",
+        "hygiene": "FSSAI certified kitchen, regular health inspections"
+      },
+      "security": {
+        "entry_exit_timing": "Gates close at 9:30 PM",
+        "cctv": "100+ cameras covering all areas",
+        "guards": "24/7 security guards",
+        "biometric_entry": true,
+        "visitor_policy": "Visitors allowed till 7 PM with ID proof"
+      },
+      "warden": {
+        "name": "Mr. Prakash Shinde",
+        "qualification": "M.Tech",
+        "availability": "24/7 on campus",
+        "contact": "+91-9876543211"
+      },
+      "rules": [
+        "No ragging - strict action",
+        "No smoking/drinking/drugs",
+        "Maintain cleanliness",
+        "Respect mess timings",
+        "No loud music after 10 PM"
+      ]
+    },
+    
+    "girls_hostel": {
+      "name": "SGU Girls Hostel",
+      "total_capacity": 400,
+      "room_types": {
+        "triple_sharing": {
+          "count": 120,
+          "rent_per_student": "₹60,000 per year",
+          "facilities": ["Bed", "Study table", "Chair", "Cupboard", "Mirror", "Fan", "Light"]
+        }
+      },
+      "amenities": [
+        "24/7 WiFi (100 Mbps)",
+        "Common room with TV",
+        "Beauty parlor services (paid)",
+        "Indoor games room",
+        "Reading room",
+        "Laundry service (paid)",
+        "Hot water facility",
+        "Backup power",
+        "Medical room with first aid"
+      ],
+      "mess_details": {
+        "meal_plan": "4 meals per day",
+        "menu_type": "Pure vegetarian with Jain options",
+        "special_care": "Separate Jain food preparation",
+        "hygiene": "FSSAI certified, lady cook staff"
+      },
+      "security": {
+        "entry_exit_timing": "Gates close at 8:00 PM (extensions on permission)",
+        "cctv": "150+ cameras with blind spot coverage",
+        "lady_guards": "24/7 lady security guards",
+        "biometric_entry": true,
+        "visitor_policy": "Only female visitors allowed, till 6 PM with ID"
+      },
+      "warden": {
+        "name": "Mrs. Sunita Kulkarni",
+        "qualification": "M.Sc",
+        "availability": "24/7 on campus",
+        "contact": "+91-9876543212"
+      },
+      "safety_features": [
+        "Emergency alarm system in each room",
+        "Anti-ragging committee",
+        "Regular safety drills",
+        "Counselor available for students"
+      ]
+    },
+    
+    "hostel_admission_process": {
+      "documents_required": [
+        "Hostel application form (filled)",
+        "Copy of college admission receipt",
+        "Aadhar card copy (student & parent)",
+        "Parent contact details",
+        "Medical fitness certificate",
+        "2 passport photos",
+        "Local guardian details (if from outside Kolhapur)"
+      ],
+      "fees_structure": {
+        "hostel_rent": "₹60,000 per year",
+        "mess_charges": "₹45,000 per year",
+        "refundable_deposit": "₹10,000 (one-time)",
+        "total_first_year": "₹1,15,000"
+      },
+      "payment_mode": "Online transfer / Demand Draft / Cash",
+      "refund_policy": "90% refund if vacated within 1 month, 50% within 3 months, No refund after 3 months"
+    }
+  },
+  
+  "transport_detailed": {
+    "bus_service": {
+      "total_buses": 15,
+      "routes": [
+        {
+          "route": "Kolhapur City Route",
+          "stops": ["Station Road", "Rajaram Bridge", "CST Stand", "Dabholkar Corner", "College"],
+          "timing": "7:00 AM pickup, 6:00 PM drop",
+          "fare": "₹15,000 per year"
+        },
+        {
+          "route": "Sangli Route",
+          "stops": ["Sangli Station", "Miraj", "Kavalapur", "College"],
+          "timing": "6:30 AM pickup, 6:30 PM drop",
+          "fare": "₹20,000 per year"
+        },
+        {
+          "route": "Ichalkaranji Route",
+          "stops": ["Ichalkaranji Bus Stand", "Hatkanangle", "Shirol", "College"],
+          "timing": "6:45 AM pickup, 6:15 PM drop",
+          "fare": "₹18,000 per year"
+        }
+      ],
+      "facilities": ["GPS tracking", "CCTV cameras", "First aid box", "Comfortable seating"],
+      "safety": "Lady attendant in each bus, strict timings, SMS alerts to parents"
+    }
+  },
+  
+  "medical_facilities": {
+    "campus_clinic": {
+      "available": true,
+      "timings": "9 AM to 5 PM (weekdays)",
+      "doctor": "Dr. Ashwini Pawar (MBBS)",
+      "facilities": ["First aid", "Basic treatment", "Emergency medicines"],
+      "tie_up_hospitals": [
+        "CPR Hospital (2 km)",
+        "Ashwini Sahakari Hospital (5 km)",
+        "Chhatrapati Pramila Raje Hospital (8 km)"
+      ],
+      "ambulance": "Available 24/7 for emergencies",
+      "insurance": "Group health insurance for students (optional at ₹2,000/year)"
+    }
+  },
+  
+  "sports_facilities_detailed": {
+    "outdoor": {
+      "cricket_ground": {
+        "type": "Full-size turf wicket",
+        "capacity": "Can host inter-college matches",
+        "equipment": "Provided by college"
+      },
+      "football_ground": {
+        "type": "Full-size field",
+        "facilities": "Floodlights for evening practice"
+      },
+      "basketball_court": "2 courts",
+      "volleyball_court": "2 courts",
+      "tennis_court": "1 court",
+      "400m_track": "Athletics track with 8 lanes"
+    },
+    "indoor": {
+      "badminton": "4 courts with wooden flooring",
+      "table_tennis": "6 tables",
+      "chess": "Dedicated chess room",
+      "carrom": "Available in common areas",
+      "gym": {
+        "equipment": ["Treadmills", "Cross-trainers", "Weight machines", "Free weights"],
+        "trainer": "Professional trainer available",
+        "timings": "6 AM to 8 PM",
+        "membership": "Free for students"
+      }
+    },
+    "coaching": {
+      "cricket": "Certified coach - ₹3,000 per year",
+      "badminton": "State-level coach - ₹2,500 per year",
+      "football": "Free coaching by PE department"
+    },
+    "achievements": [
+      "University champions in Cricket (2024)",
+      "Runners-up in Football (2023)",
+      "3 students representing state in Athletics"
+    ]
+  },
+  
+  "library_detailed": {
+    "central_library": {
+      "total_books": 50000,
+      "journals": 200,
+      "newspapers": 15,
+      "magazines": 30,
+      "seating_capacity": 300,
+      "timings": "8 AM to 9 PM (all days)",
+      "digital_library": {
+        "e_books": 10000,
+        "e_journals": "IEEE, Springer, Elsevier access",
+        "online_databases": ["NPTEL", "SWAYAM", "Coursera for campus"]
+      },
+      "facilities": [
+        "Air-conditioned reading rooms",
+        "Separate discussion rooms",
+        "Computer lab with internet",
+        "Photocopy facility",
+        "Book bank for needy students"
+      ],
+      "book_issue": "3 books for 15 days",
+      "late_fine": "₹2 per day per book"
+    }
+  },
+  
+  "canteen_facilities": {
+    "main_canteen": {
+      "capacity": 500,
+      "timings": "8 AM to 7 PM",
+      "food_type": "Pure vegetarian, Jain options available",
+      "price_range": "₹20 to ₹80 per item",
+      "menu_highlights": ["South Indian", "North Indian", "Chinese", "Snacks", "Beverages"],
+      "hygiene": "FSSAI certified, clean and hygienic",
+      "seating": "Indoor & outdoor seating available"
+    },
+    "juice_corner": {
+      "fresh_juices": true,
+      "timings": "9 AM to 6 PM"
+    },
+    "chai_tapri": {
+      "tea_coffee": "₹10 to ₹20",
+      "snacks": "Samosa, Vada Pav, etc."
+    }
+  },
+  
+  "wifi_internet": {
+    "coverage": "100% campus coverage",
+    "speed": "100 Mbps fiber connection",
+    "access": "Free WiFi for all students",
+    "login": "Student ID based authentication",
+    "restrictions": "Educational sites prioritized, social media during specific hours"
+  }
+}

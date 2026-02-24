@@ -1,0 +1,217 @@
+{
+  "departments": {
+    "Computer Science & Engineering (CSE)": {
+      "head_of_department": "Dr. Rajesh Kumar",
+      "established": "2012",
+      "total_faculty": 25,
+      "labs": [
+        {
+          "name": "Advanced Computing Lab",
+          "systems": 60,
+          "software": ["Python", "Java", "C++", "MATLAB", "VS Code", "Eclipse"]
+        },
+        {
+          "name": "AI & Machine Learning Lab",
+          "systems": 40,
+          "software": ["TensorFlow", "PyTorch", "Keras", "Jupyter", "Anaconda"],
+          "gpu_systems": 10
+        },
+        {
+          "name": "Network & Security Lab",
+          "systems": 50,
+          "software": ["Cisco Packet Tracer", "Wireshark", "Kali Linux"]
+        },
+        {
+          "name": "IoT & Embedded Systems Lab",
+          "arduino_kits": 30,
+          "raspberry_pi": 20,
+          "sensors": "Various sensors for projects"
+        }
+      ],
+      "specializations": [
+        "Artificial Intelligence & Machine Learning",
+        "Data Science",
+        "Cyber Security",
+        "Cloud Computing",
+        "IoT"
+      ],
+      "faculty_details": [
+        {
+          "name": "Dr. Rajesh Kumar",
+          "designation": "Professor & HOD",
+          "qualification": "Ph.D. in Computer Science",
+          "experience": "18 years",
+          "specialization": "Machine Learning, Data Mining"
+        },
+        {
+          "name": "Dr. Priya Sharma",
+          "designation": "Associate Professor",
+          "qualification": "Ph.D. in AI",
+          "experience": "12 years",
+          "specialization": "Artificial Intelligence, Deep Learning"
+        },
+        {
+          "name": "Prof. Amit Patil",
+          "designation": "Assistant Professor",
+          "qualification": "M.Tech, pursuing Ph.D.",
+          "experience": "8 years",
+          "specialization": "Cloud Computing, Distributed Systems"
+        }
+      ],
+      "student_projects": [
+        "AI-based Disease Prediction System",
+        "Smart Agriculture using IoT",
+        "Blockchain for Supply Chain",
+        "Face Recognition Attendance System"
+      ],
+      "industry_collaborations": [
+        "IBM for Cloud Computing",
+        "Microsoft for Azure Training",
+        "AWS Academy Program",
+        "Google Cloud Credits Program"
+      ],
+      "achievements": [
+        "Students won Smart India Hackathon 2024",
+        "Published 15+ research papers in 2024",
+        "3 patents filed in AI domain"
+      ]
+    },
+    
+    "Artificial Intelligence & Machine Learning (AIML)": {
+      "head_of_department": "Dr. Sneha Deshmukh",
+      "established": "2020",
+      "total_faculty": 15,
+      "labs": [
+        {
+          "name": "Deep Learning Lab",
+          "gpu_workstations": 15,
+          "software": ["TensorFlow", "PyTorch", "Keras", "CUDA"],
+          "cloud_access": "AWS, Google Cloud credits"
+        },
+        {
+          "name": "Computer Vision Lab",
+          "cameras": 20,
+          "image_processing_tools": ["OpenCV", "PIL", "scikit-image"]
+        },
+        {
+          "name": "NLP Lab",
+          "systems": 40,
+          "tools": ["NLTK", "spaCy", "Transformers", "GPT models"]
+        }
+      ],
+      "curriculum_highlights": [
+        "Advanced Machine Learning",
+        "Deep Learning & Neural Networks",
+        "Natural Language Processing",
+        "Computer Vision",
+        "Reinforcement Learning",
+        "MLOps & Model Deployment"
+      ],
+      "industry_training": [
+        "NVIDIA Deep Learning Institute certification",
+        "Google AI courses",
+        "Kaggle competitions participation"
+      ]
+    },
+    
+    "Mechanical Engineering": {
+      "head_of_department": "Dr. Vijay Kulkarni",
+      "established": "2012",
+      "total_faculty": 20,
+      "labs": [
+        {
+          "name": "Workshop",
+          "equipment": ["Lathe machines", "Milling machines", "Drilling machines", "Welding equipment"]
+        },
+        {
+          "name": "CAD/CAM Lab",
+          "systems": 50,
+          "software": ["AutoCAD", "SolidWorks", "CATIA", "ANSYS"]
+        },
+        {
+          "name": "Thermal Engineering Lab",
+          "equipment": ["IC Engine setup", "Refrigeration system", "Heat exchangers"]
+        },
+        {
+          "name": "Material Testing Lab",
+          "equipment": ["UTM", "Hardness testing", "Impact testing"]
+        }
+      ],
+      "specializations": [
+        "Automobile Engineering",
+        "Thermal Engineering",
+        "Design Engineering",
+        "Manufacturing"
+      ],
+      "placements_specific": {
+        "companies": ["Tata Motors", "Mahindra", "L&T", "Thermax"],
+        "average_package": "₹4.2 LPA",
+        "highest_package": "₹12 LPA"
+      }
+    },
+    
+    "Civil Engineering": {
+      "head_of_department": "Dr. Madhav Joshi",
+      "established": "2012",
+      "total_faculty": 18,
+      "labs": [
+        {
+          "name": "Surveying Lab",
+          "equipment": ["Total stations", "Theodolites", "Levels", "GPS"]
+        },
+        {
+          "name": "Concrete & Highway Lab",
+          "testing_equipment": ["Compression testing machine", "Marshall stability test"]
+        },
+        {
+          "name": "Geotechnical Lab",
+          "tests": ["Soil analysis", "CBR test", "Shear strength test"]
+        },
+        {
+          "name": "CAD Lab",
+          "software": ["AutoCAD Civil 3D", "STAAD Pro", "ETABS"]
+        }
+      ],
+      "site_visits": "Regular visits to construction sites, bridges, dams",
+      "govt_projects_exposure": true
+    },
+    
+    "Electronics & Communication": {
+      "head_of_department": "Dr. Sanjay Patil",
+      "established": "2013",
+      "total_faculty": 22,
+      "labs": [
+        {
+          "name": "VLSI Design Lab",
+          "software": ["Xilinx", "Cadence", "ModelSim"]
+        },
+        {
+          "name": "Communication Lab",
+          "equipment": ["Signal generators", "Oscilloscopes", "Spectrum analyzers"]
+        },
+        {
+          "name": "Embedded Systems Lab",
+          "microcontrollers": ["8051", "ARM", "Arduino", "Raspberry Pi"]
+        },
+        {
+          "name": "Digital Signal Processing Lab",
+          "dsp_kits": 30,
+          "software": ["MATLAB", "LabVIEW"]
+        }
+      ],
+      "industry_certifications": [
+        "VLSI certification from industry",
+        "Embedded systems training",
+        "IoT certification programs"
+      ]
+    }
+  },
+  
+  "common_facilities_all_departments": {
+    "seminar_halls": "2 seminar halls per department with projector & audio system",
+    "student_project_rooms": "Dedicated rooms for final year projects",
+    "faculty_cabins": "Individual cabins for senior faculty",
+    "staff_rooms": "Common staff room with amenities",
+    "departmental_library": "Reference books specific to department"
+  }
+}
