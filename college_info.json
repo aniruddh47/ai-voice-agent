@@ -1,0 +1,61 @@
+{
+  "university_overview": {
+    "about": "Sanjay Ghodawat University (SGU) is a premier educational institution located in Kolhapur, Maharashtra. Spread across a lush 165-acre campus, we focus on industry-aligned education.",
+    "accreditations": "We are AICTE Approved, NAAC A Grade, and NBA Accredited.",
+    "working_hours": "The admission office is open Monday to Saturday, 9:00 AM to 5:00 PM."
+  },
+
+  "admissions": {
+    "eligibility": "For Undergraduate programs like B.Tech and BCA, students must score above 70% in their 12th board exams in relevant subjects.",
+    "entrance_exams": "For B.Tech, valid scores in JEE Main or MHT-CET are mandatory. For MBA, exams like MAH-MBA-CET, CAT, or MAT are required.",
+    "process": "The admission process is straightforward: 1. Fill out the online application. 2. Submit entrance exam scores. 3. Attend counseling or an interview if shortlisted. 4. Pay the admission confirmation fee.",
+    "documents": "Parents will need to bring the student's 10th and 12th mark sheets, Entrance Exam Scorecard, Transfer Certificate, Aadhar Card, and passport-size photos."
+  },
+
+  "departments": {
+    "btech_software": {
+      "courses": "B.Tech in Artificial Intelligence & Machine Learning (AIML) and Computer Science Engineering (CSE).",
+      "fees": "1.35 Lakhs per year.",
+      "syllabus_highlights": "The curriculum focuses heavily on Python, Neural Networks, Cloud Computing, Data Structures, and Software Development.",
+      "facilities": "Students have access to high-end computing labs with the latest GPUs for AI training."
+    },
+    "btech_core": {
+      "courses": "B.Tech in Civil, Mechanical, and Aeronautical Engineering.",
+      "fees": "1 Lakh per year.",
+      "syllabus_highlights": "Focuses on CAD/CAM, Thermodynamics, Structural Engineering, and Aerodynamics.",
+      "facilities": "Features massive mechanical workshops, wind tunnel testing for Aero, and heavy machinery labs."
+    },
+    "computer_applications": {
+      "courses": "BCA (Undergraduate) and MCA (Postgraduate).",
+      "fees": "1 Lakh per year for both programs.",
+      "details": "Perfect for students wanting to jump directly into software engineering, web development, and IT management without a core engineering degree."
+    },
+    "management": {
+      "courses": "BBA and MBA.",
+      "fees": "1 Lakh per year for both programs.",
+      "details": "Specializations are available in Finance, Marketing, HR, and Business Analytics. We focus heavily on case studies and corporate internships."
+    },
+    "other_programs": {
+      "courses": "Law (BA LLB / BBA LLB), Mass Communication, and Architecture.",
+      "fees": "Approximately 1 Lakh per year.",
+      "details": "These programs feature moot courts for Law, design studios for Architecture, and media labs for Mass Comm."
+    }
+  },
+
+  "campus_life": {
+    "hostel": "We provide highly secure, separate hostels for boys and girls. The fee is 60,000 INR per year. Rooms come with Wi-Fi, study desks, and 24/7 warden security.",
+    "mess_and_food": "The mess fee is 4,000 INR per month, serving nutritious and hygienic meals. The campus also features a large food court and multiple cafes for students to hang out.",
+    "convenience": "Students don't need to leave campus for basics. We have an on-campus laundry service, a local mart for daily needs, and ATMs.",
+    "sports": "We boast world-class sporting facilities including a full-sized cricket stadium, a football stadium, basketball courts, and an indoor gym."
+  },
+
+  "career_and_placements": {
+    "stats": "SGU has a phenomenal placement record. The average package is between 4 to 5 LPA, with our highest package hitting 15 LPA.",
+    "top_recruiters": "Our top recruiters include global giants like Bentley, Tata Motors, Emicon, TCS, and Infosys.",
+    "training": "The placement cell provides rigorous training in soft skills, aptitude tests, and mock interviews from the 3rd year onwards."
+  },
+
+  "transportation": {
+    "details": "We have a massive fleet of safe, comfortable college buses that provide daily pickup and drop-off services for students traveling from Sangli, Ichalkaranji, and all across Kolhapur."
+  }
+}

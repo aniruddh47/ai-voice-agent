@@ -1,8 +1,11 @@
 .venv/
+venv/
 __pycache__/
 *.pyc
 *.mp3
 .env
 leads.json
 vosk-model-small-en-in-0.4/
+en_US-ryan-high.onnx
+en_US-ryan-high.onnx.json
 response.mp3

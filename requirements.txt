@@ -1,0 +1,4 @@
+google-generativeai
+vosk
+pyttsx3
+sounddevice
