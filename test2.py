@@ -2,15 +2,19 @@ import os
 import json
 import time
 import asyncio
+import threading
 import speech_recognition as sr
 from faster_whisper import WhisperModel
 from edge_tts import Communicate
 from playsound import playsound
 from dotenv import load_dotenv
 from google import genai
-import difflib
+import numpy as np
+from sentence_transformers import SentenceTransformer
 
 question_cache = {}
+cache_questions = []
+question_embeddings = []
 conversation_history = []
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -18,7 +22,7 @@ DATA_DIR = os.path.join(BASE_DIR, "data")
 
 load_dotenv()
 
-WHISPER_MODEL_SIZE = "small.en"
+WHISPER_MODEL_SIZE = os.getenv("WHISPER_MODEL_SIZE", "small.en")
 AUDIO_INPUT_FILE = "temp_input.wav"
 AUDIO_OUTPUT_FILE = "response.mp3"
 TTS_VOICE = "en-IN-NeerjaNeural"
@@ -34,9 +38,46 @@ if not API_KEY:
     raise Exception("GEMINI_API_KEY missing from environment variables.")
 
 client = genai.Client(api_key=API_KEY)
+stt_model = None
+embedding_model = None
+stt_model_lock = threading.Lock()
+embedding_model_lock = threading.Lock()
+PRELOAD_MODELS_IN_BACKGROUND = os.getenv("PRELOAD_MODELS_IN_BACKGROUND", "0") == "1"
 
-print("⏳ Loading Faster-Whisper Model...")
-stt_model = WhisperModel(WHISPER_MODEL_SIZE, device="cpu", compute_type="int8")
+
+def get_stt_model():
+    global stt_model
+    if stt_model is None:
+        with stt_model_lock:
+            if stt_model is None:
+                print("⏳ Loading Whisper model (first time)...")
+                stt_model = WhisperModel(WHISPER_MODEL_SIZE, device="cpu", compute_type="int8")
+    return stt_model
+
+
+def get_embedding_model():
+    global embedding_model
+    if embedding_model is None:
+        with embedding_model_lock:
+            if embedding_model is None:
+                print("⏳ Loading embedding model (first time)...")
+                embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+    return embedding_model
+
+
+def preload_models_in_background():
+    if not PRELOAD_MODELS_IN_BACKGROUND:
+        return
+
+    def _preload_worker():
+        try:
+            get_stt_model()
+            get_embedding_model()
+            print("✅ Background model preload complete")
+        except Exception as e:
+            print(f"⚠️  Background preload failed: {e}")
+
+    threading.Thread(target=_preload_worker, daemon=True).start()
 recognizer = sr.Recognizer()
 recognizer.dynamic_energy_threshold = True
 recognizer.pause_threshold = 0.8
@@ -84,130 +125,126 @@ def load_all_college_data():
 COLLEGE_DATA = load_all_college_data()  # Loaded ONCE at startup
 
 
-# ── FIXED: build_prompt now reads from the merged COLLEGE_DATA ───────────────
-def build_prompt(user_text):
+def summarize_value(value, max_chars=170):
+    if value is None:
+        return ""
+    if isinstance(value, (dict, list)):
+        text = json.dumps(value, ensure_ascii=True)
+    else:
+        text = str(value)
+    text = " ".join(text.split())
+    return text[:max_chars].rstrip() + ("..." if len(text) > max_chars else "")
+
+
+def extract_relevant_context(user_text):
     text = user_text.lower()
+    relevant_parts = []
 
-    # Pull top-level info that exists in your actual JSON structure
-    overview      = COLLEGE_DATA.get("university_overview", {})
-    college_name  = overview.get("about", "Sanjay Ghodawat University, Kolhapur")
-    admissions    = COLLEGE_DATA.get("admissions", {})
-    departments   = COLLEGE_DATA.get("departments", {})          # from college_info.json
-    dept_detail   = COLLEGE_DATA.get("departments", {})          # from departments.json (same key, merged)
-    placements    = COLLEGE_DATA.get("career_and_placements", {})
-    campus_life   = COLLEGE_DATA.get("campus_life", {})
-    hostel_detail = COLLEGE_DATA.get("hostel_detailed", {})
-    transport     = COLLEGE_DATA.get("transport_detailed", {})
-    sports        = COLLEGE_DATA.get("sports_facilities_detailed", {})
-    library       = COLLEGE_DATA.get("library_detailed", {})
-    canteen       = COLLEGE_DATA.get("canteen_facilities", {})
-    wifi          = COLLEGE_DATA.get("wifi_internet", {})
-    medical       = COLLEGE_DATA.get("medical_facilities", {})
-    admission_proc = COLLEGE_DATA.get("admission_procedures_detailed", {})
+    topic_rules = [
+        (
+            ["admission", "apply", "eligibility", "process", "jee", "cet", "document", "fees", "fee"],
+            "Admissions",
+            COLLEGE_DATA.get("admissions", {}) or COLLEGE_DATA.get("admission_procedures_detailed", {}),
+        ),
+        (
+            ["course", "program", "branch", "department", "btech", "mba", "mca", "engineering"],
+            "Programs",
+            COLLEGE_DATA.get("departments", {}),
+        ),
+        (
+            ["placement", "salary", "package", "company", "career", "job"],
+            "Placements",
+            COLLEGE_DATA.get("career_and_placements", {}),
+        ),
+        (
+            ["hostel", "accommodation", "mess", "room", "stay", "food"],
+            "Hostel",
+            COLLEGE_DATA.get("hostel_detailed", {}) or COLLEGE_DATA.get("campus_life", {}).get("hostel", {}),
+        ),
+        (
+            ["transport", "bus", "route", "pickup", "drop", "travel"],
+            "Transport",
+            COLLEGE_DATA.get("transport_detailed", {}),
+        ),
+        (
+            ["library", "book", "journal", "digital"],
+            "Library",
+            COLLEGE_DATA.get("library_detailed", {}),
+        ),
+        (
+            ["sports", "gym", "ground", "court", "athletics"],
+            "Sports",
+            COLLEGE_DATA.get("sports_facilities_detailed", {}),
+        ),
+        (
+            ["medical", "doctor", "health", "clinic", "ambulance"],
+            "Medical",
+            COLLEGE_DATA.get("medical_facilities", {}),
+        ),
+    ]
 
-    prompt = f"""You are a polite and professional admission counselor for Sanjay Ghodawat University (SGU), Kolhapur.
-You are speaking on a phone call with a parent or prospective student.
+    for keywords, label, source_data in topic_rules:
+        if any(word in text for word in keywords):
+            summary = summarize_value(source_data)
+            if summary:
+                relevant_parts.append(f"{label}: {summary}")
 
-CRITICAL RULES:
-- Keep your answer short (maximum 2-3 sentences).
-- Speak naturally and conversationally, like a real phone call.
-- NEVER use special formatting like *, #, or bullet points.
-- NEVER say "None" or "I don't have that information" — use the data provided below.
-- Always sound warm, confident, and helpful.
+    if not relevant_parts:
+        overview = summarize_value(COLLEGE_DATA.get("university_overview", {}), max_chars=240)
+        admissions = summarize_value(COLLEGE_DATA.get("admissions", {}), max_chars=220)
+        fallback_context = f"Overview: {overview} | Admissions: {admissions}".strip(" |")
+        return fallback_context[:650]
 
-"""
+    context = " | ".join(relevant_parts)
+    return context[:650]
 
-    prompt += "=== RELEVANT COLLEGE DATA ===\n"
 
-    # General / overview — always included
-    prompt += f"COLLEGE: {overview}\n"
-
-    # Courses / departments
-    if any(word in text for word in [
-        "course", "program", "branch", "department", "btech", "b.tech",
-        "mba", "mca", "bca", "m.tech", "engineering", "cse", "aiml",
-        "computer", "mechanical", "civil", "electronics", "what do you teach",
-        "subjects", "curriculum", "specialization"
-    ]):
-        prompt += f"\nCOURSES & DEPARTMENTS (summary): {COLLEGE_DATA.get('departments', {})}\n"
-        # Also pull the detailed dept info if available
-        btech_sw  = COLLEGE_DATA.get("departments", {}).get("btech_software", {})
-        btech_core = COLLEGE_DATA.get("departments", {}).get("btech_core", {})
-        prompt += f"B.Tech Software (AIML/CSE): {btech_sw}\n"
-        prompt += f"B.Tech Core (Civil/Mech/Aero): {btech_core}\n"
-
-    # Admissions & eligibility
-    if any(word in text for word in [
-        "admission", "apply", "eligibility", "process", "exam", "document",
-        "date", "when", "how to join", "entrance", "jee", "cet", "counseling",
-        "fee", "fees", "scholarship", "reservation", "quota"
-    ]):
-        prompt += f"\nADMISSIONS: {admissions}\n"
-        prompt += f"\nADMISSION PROCEDURES (detailed): {admission_proc}\n"
-
-    # Placements
-    if any(word in text for word in [
-        "placement", "salary", "package", "company", "recruit", "job",
-        "lpa", "offer", "campus", "hire", "career"
-    ]):
-        prompt += f"\nPLACEMENTS: {placements}\n"
-
-    # Hostel & accommodation
-    if any(word in text for word in [
-        "hostel", "stay", "accommodation", "room", "warden", "mess",
-        "boys", "girls", "food", "living", "resident"
-    ]):
-        prompt += f"\nHOSTEL (summary): {campus_life.get('hostel', '')}\n"
-        prompt += f"\nHOSTEL (detailed): {hostel_detail}\n"
-
-    # Transport
-    if any(word in text for word in [
-        "bus", "transport", "pickup", "drop", "route", "sangli",
-        "ichalkaranji", "travel", "commute"
-    ]):
-        prompt += f"\nTRANSPORT: {transport}\n"
-
-    # Sports & facilities
-    if any(word in text for word in [
-        "sport", "cricket", "football", "gym", "ground", "court",
-        "badminton", "athletics", "facility", "facilities"
-    ]):
-        prompt += f"\nSPORTS: {sports}\n"
-
-    # Library
-    if any(word in text for word in [
-        "library", "book", "read", "study", "journal", "e-book", "digital"
-    ]):
-        prompt += f"\nLIBRARY: {library}\n"
-
-    # Canteen & food
-    if any(word in text for word in [
-        "canteen", "food", "eat", "cafe", "snack", "juice", "veg", "menu"
-    ]):
-        prompt += f"\nCANTEEN: {canteen}\n"
-
-    # WiFi & internet
-    if any(word in text for word in ["wifi", "internet", "network", "speed", "connection"]):
-        prompt += f"\nWIFI: {wifi}\n"
-
-    # Medical
-    if any(word in text for word in ["medical", "doctor", "health", "clinic", "hospital", "ambulance", "sick"]):
-        prompt += f"\nMEDICAL: {medical}\n"
-
-    # FALLBACK — if nothing matched, send the full overview + placements
-    has_specific_data = any(keyword in prompt for keyword in [
-        "COURSES", "ADMISSIONS", "PLACEMENTS", "HOSTEL", "TRANSPORT",
-        "SPORTS", "LIBRARY", "CANTEEN", "WIFI", "MEDICAL"
-    ])
-    if not has_specific_data:
-        prompt += f"\nGENERAL INFO: {overview}\n"
-        prompt += f"\nPLACEMENTS: {placements}\n"
-        prompt += f"\nCAMPUS LIFE: {campus_life}\n"
-
-    prompt += f"\n=== PARENT'S QUESTION ===\n{user_text}\n"
-    prompt += "\nAnswer the question naturally in 2-3 sentences using the data above. Do NOT say None."
-
+def build_prompt(user_text):
+    short_context = extract_relevant_context(user_text)
+    prompt = (
+        "You are a polite and professional admission counselor for Sanjay Ghodawat University, Kolhapur.\n\n"
+        "Answer like a real person on a phone call.\n"
+        "Keep answers short (2-3 sentences), natural, and confident.\n"
+        "Do not use bullet points or special characters.\n\n"
+        "Context:\n"
+        f"{short_context}\n\n"
+        "Question:\n"
+        f"{user_text}\n\n"
+        "Answer naturally."
+    )
     return prompt
+
+
+def compute_embedding(text):
+    clean_text = (text or "").strip()
+    if not clean_text:
+        clean_text = "general admission query"
+    return get_embedding_model().encode(clean_text, normalize_embeddings=True)
+
+
+def get_similar_cached_response(query_embedding):
+    if not question_embeddings:
+        return None
+    scores = np.dot(np.vstack(question_embeddings), query_embedding)
+    best_idx = int(np.argmax(scores))
+    best_score = float(scores[best_idx])
+    if best_score > 0.85:
+        matched_query = cache_questions[best_idx]
+        print(f"⚡ [SEMANTIC CACHE HIT: {best_score:.2f}]")
+        return question_cache.get(matched_query)
+    return None
+
+
+def store_in_cache(query, response, embedding):
+    if not response:
+        return
+    normalized_query = query.lower().strip()
+    if normalized_query in question_cache:
+        question_cache[normalized_query] = response
+        return
+    question_cache[normalized_query] = response
+    cache_questions.append(normalized_query)
+    question_embeddings.append(embedding)
 
 
 # ── Rest of your code unchanged ──────────────────────────────────────────────
@@ -235,9 +272,9 @@ def listen_and_transcribe():
         return ""
 
     print("⏳ Transcribing...")
-    segments, _ = stt_model.transcribe(
+    segments, _ = get_stt_model().transcribe(
         AUDIO_INPUT_FILE,
-        beam_size=5,
+        beam_size=1,
         language=WHISPER_LANGUAGE,
         vad_filter=True,
         condition_on_previous_text=False,
@@ -249,20 +286,32 @@ def listen_and_transcribe():
 
 
 def get_ai_response(text):
-    user_query = text.lower().strip()
-    similar = difflib.get_close_matches(user_query, question_cache.keys(), n=1, cutoff=0.80)
-    if similar:
-        print("⚡ [CACHE HIT]")
-        return question_cache[similar[0]]
+    user_query = (text or "").lower().strip()
+    if not user_query:
+        return "Could you please repeat your question?"
+
+    query_embedding = compute_embedding(user_query)
+    cached_response = get_similar_cached_response(query_embedding)
+    if cached_response:
+        return cached_response
+
+    print("🤔 Thinking...")
+
     try:
         prompt = build_prompt(text)
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=prompt
+            contents=prompt,
         )
-        reply = response.text.strip()
+        reply = (response.text or "").strip()
+
         if reply:
-            question_cache[user_query] = reply
+            print("Counselor: ", end="", flush=True)
+            for word in reply.split():
+                print(word, end=" ", flush=True)
+                time.sleep(0.03)
+            print()
+            store_in_cache(user_query, reply, query_embedding)
             return reply
         return "I didn't quite catch that. Could you repeat?"
     except Exception as e:
@@ -295,6 +344,7 @@ def speak(text):
 def main():
     print("\n🎓 SGU Admission Counselor Started")
     print("Press Ctrl+C to stop.\n")
+    preload_models_in_background()
     while True:
         try:
             user_text = listen_and_transcribe()
@@ -304,7 +354,6 @@ def main():
             if any(w in user_text.lower() for w in ["stop", "exit", "bye", "goodbye"]):
                 speak("Thank you for calling. Have a great day!")
                 break
-            print("🧠 Thinking...")
             reply = get_ai_response(user_text)
             conversation_history.append({"parent": user_text, "counselor": reply})
             speak(reply)
