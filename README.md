@@ -15,7 +15,6 @@ admission-counselling/
 │   │   ├── embeddings.py           # Embedding service (SentenceTransformers)
 │   │   ├── retrieval.py            # RAG retrieval system
 │   │   ├── chunking.py             # Knowledge base chunking
-│   │   ├── voice.py                # Voice utilities
 │   │   └── __init__.py
 │   ├── data/                        # Knowledge base (JSON)
 │   │   ├── college_info.json
@@ -25,15 +24,9 @@ admission-counselling/
 │   ├── cache/                       # Runtime cache directory
 │   │   ├── cache.json              # Semantic cache storage
 │   │   └── semantic_cache.json
-│   ├── models/                      # ML models
-│   │   └── vosk-model-small-en-in-0.4/  # Speech recognition model
-│   ├── tests/                       # Test and experimental files
-│   │   ├── test.py
-│   │   ├── test2.py
-│   │   └── ai_agent.py
 │   └── __init__.py
 │
-├── frontend/                        # React + Vite + Tailwind frontend
+├── chat-ui/                         # React + Vite + Tailwind frontend
 │   ├── src/
 │   │   ├── App.jsx                 # Main app component
 │   │   ├── main.jsx                # Entry point
@@ -97,8 +90,8 @@ copy .env.example .env
 ### 2. Frontend Setup
 
 ```bash
-# Navigate to frontend
-cd frontend
+# Navigate to frontend (chat-ui folder)
+cd chat-ui
 
 # Install dependencies
 npm install
@@ -176,7 +169,7 @@ python api_server.py
 
 ### Frontend Development
 ```bash
-cd frontend
+cd chat-ui
 npm run dev      # Development server
 npm run build    # Production build
 npm run preview  # Preview build
@@ -196,8 +189,8 @@ npm run preview  # Preview build
 - Ensure backend is running and API is accessible
 
 **Models not loading:**
-- Check `backend/models/` directory exists
-- Ensure proper file paths in code
+- Check `backend/requirements.txt` has all dependencies installed
+- Run: `pip install -r backend/requirements.txt`
 
 ## 📄 License
 
