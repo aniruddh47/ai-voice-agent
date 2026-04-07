@@ -1,0 +1,26 @@
+# SGU Admission Counselor - Python Backend Dependencies
+
+# API & Web Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# LLM & AI
+google-genai==0.3.0
+
+# Speech Recognition & TTS
+SpeechRecognition==3.10.1
+faster-whisper==0.10.1
+edge-tts==6.1.13
+playsound==1.2.2
+
+# NLP & Embeddings
+sentence-transformers==2.2.2
+numpy==1.26.0
+scipy==1.11.0
+
+# Utilities
+python-dotenv==1.0.0
+pydantic==2.0.0
+
+# Optional: For better performance
+torch==2.0.0  # CPU by default
