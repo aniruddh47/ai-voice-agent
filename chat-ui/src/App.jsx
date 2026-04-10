@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import LoadingScreen from './components/LoadingScreen'
 import ChatInterface from './components/ChatInterface'
 import VoicePanel from './components/VoicePanel'
 import CallControls from './components/CallControls'
 
-const API_BASE_URL = 'http://localhost:5000'
+const API_PORT = 5000
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -15,6 +15,7 @@ function App() {
   const [isMicActive, setIsMicActive] = useState(false)
   const [micStatus, setMicStatus] = useState('')
   const [apiReady, setApiReady] = useState(false)
+  const [activeApiBaseUrl, setActiveApiBaseUrl] = useState(`http://localhost:${API_PORT}`)
   
   const recognitionRef = useRef(null)
   const mediaRecorderRef = useRef(null)
@@ -23,19 +24,42 @@ function App() {
   const isSpeakingRef = useRef(false)
   const speechQueueRef = useRef([])
 
+  const apiCandidates = useMemo(() => {
+    const host = window.location.hostname || 'localhost'
+    const candidates = [
+      `http://${host}:${API_PORT}`,
+      `http://localhost:${API_PORT}`,
+      `http://127.0.0.1:${API_PORT}`
+    ]
+    return [...new Set(candidates)]
+  }, [])
+
+  const checkApiHealth = useCallback(async () => {
+    for (const baseUrl of apiCandidates) {
+      try {
+        const healthResponse = await fetch(`${baseUrl}/api/health`)
+        if (healthResponse.ok) {
+          setActiveApiBaseUrl(baseUrl)
+          setApiReady(true)
+          console.log(`API Server connected at ${baseUrl}`)
+          return true
+        }
+      } catch (err) {
+        // Try next candidate URL.
+      }
+    }
+
+    setApiReady(false)
+    return false
+  }, [apiCandidates])
+
   // Initialize app and check API
   useEffect(() => {
     const initApp = async () => {
-      try {
-        // Check API health
-        const healthResponse = await fetch(`${API_BASE_URL}/api/health`)
-        if (healthResponse.ok) {
-          setApiReady(true)
-          console.log('✅ API Server connected')
-        }
-      } catch (err) {
-        console.error('⚠️ API Server not available:', err)
-        setApiReady(false)
+      // Check API once on initial load
+      const healthy = await checkApiHealth()
+      if (!healthy) {
+        console.error('⚠️ API Server not available on initial check')
       }
 
       // Initialize Web Speech API
@@ -77,7 +101,14 @@ function App() {
     }
 
     initApp()
-  }, [])
+
+    // Keep checking API health so banner clears automatically
+    const healthTimer = setInterval(() => {
+      checkApiHealth()
+    }, 5000)
+
+    return () => clearInterval(healthTimer)
+  }, [checkApiHealth])
 
   const handleStartCall = async () => {
     setCallActive(true)
@@ -118,7 +149,10 @@ function App() {
     setIsProcessing(true)
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      // Refresh API status before making the request
+      await checkApiHealth()
+
+      const response = await fetch(`${activeApiBaseUrl}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -148,6 +182,7 @@ function App() {
       console.log('✅ Response fully spoken, ready for next input')
     } catch (err) {
       console.error('❌ API Error:', err)
+      setApiReady(false)
       const errorMsg = 'I am having trouble connecting to the server. Please try again.'
       setMessages(prev => [
         ...prev,
@@ -303,7 +338,7 @@ function App() {
       {/* API Status Indicator */}
       {!apiReady && (
         <div className="fixed top-0 left-0 right-0 bg-yellow-500 text-white px-4 py-2 text-sm z-40">
-          ⚠️ API Server not connected. Run: python api_server.py
+          ⚠️ API Server not connected. Backend is starting or unavailable.
         </div>
       )}
 

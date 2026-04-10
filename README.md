@@ -6,9 +6,7 @@ A production-ready AI voice assistant for Sanjay Ghodawat University (SGU) admis
 
 ```
 admission-counselling/
-├── backend/                          # Python Flask backend
-│   ├── main.py                      # Standalone voice assistant (CLI mode)
-│   ├── api_server.py                # Flask REST API server
+├── backend/                          # Python backend package (data/utils/cache)
 │   ├── requirements.txt             # Python dependencies
 │   ├── utils/                       # Core utilities
 │   │   ├── cache.py                # Semantic caching system
@@ -26,6 +24,9 @@ admission-counselling/
 │   │   └── semantic_cache.json
 │   └── __init__.py
 │
+├── main.py                           # Standalone voice assistant (CLI mode)
+├── api_server.py                     # Flask REST API server
+│
 ├── chat-ui/                         # React + Vite + Tailwind frontend
 │   ├── src/
 │   │   ├── App.jsx                 # Main app component
@@ -36,7 +37,6 @@ admission-counselling/
 │   │   │   ├── VoicePanel.jsx
 │   │   │   ├── CallControls.jsx
 │   │   │   └── LoadingScreen.jsx
-│   │   └── pages/                  # Page components
 │   ├── index.html                  # HTML template
 │   ├── package.json                # NPM dependencies
 │   ├── vite.config.js              # Vite configuration
@@ -71,7 +71,7 @@ admission-counselling/
 
 ```bash
 # Navigate to root
-cd "d:\admission-counselling"
+cd "d:\admisson councelling"
 
 # Create Python virtual environment
 python -m venv .venv
@@ -109,7 +109,7 @@ python api_server.py
 
 ### 4. Access the Application
 
-- Frontend: `http://localhost:5173`
+- Frontend: `http://localhost:3000`
 - Backend API: `http://localhost:5000`
 
 ## 🔧 Configuration
@@ -181,7 +181,7 @@ npm run preview  # Preview build
 - Create `.env` file in root
 - Add your API key: `GEMINI_API_KEY=xxx`
 
-**Port 5000/5173 already in use:**
+**Port 5000/3000 already in use:**
 - Change port in `api_server.py` or `vite.config.js`
 
 **Voice not playing:**

@@ -9,3 +9,11 @@ vosk-model-small-en-in-0.4/
 en_US-ryan-high.onnx
 en_US-ryan-high.onnx.json
 response.mp3
+
+# Frontend build/runtime artifacts
+chat-ui/node_modules/
+chat-ui/dist/
+
+# Python runtime/cache artifacts
+backend/cache/*.wav
+backend/cache/*.mp3

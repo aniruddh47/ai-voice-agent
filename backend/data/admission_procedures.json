@@ -264,6 +264,219 @@
     }
   },
   
+  "course_wise_quick_reference": {
+    "btech_core": {
+      "B.Tech Mechanical Engineering": {
+        "duration": "4 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+        "course_start": "August-September",
+        "key_documents": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "Transfer certificate"
+        ],
+        "major_subjects": [
+          "Thermodynamics",
+          "Machine Design",
+          "Manufacturing",
+          "CAD/CAM"
+        ],
+        "placement_roles": [
+          "Design Engineer",
+          "Production Engineer",
+          "Quality Engineer"
+        ]
+      },
+      "B.Tech Civil Engineering": {
+        "duration": "4 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+        "course_start": "August-September",
+        "key_documents": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "Leaving certificate"
+        ],
+        "major_subjects": [
+          "Structural Engineering",
+          "Geotechnical Engineering",
+          "Transportation Engineering",
+          "Environmental Engineering"
+        ],
+        "placement_roles": [
+          "Site Engineer",
+          "Planning Engineer",
+          "Quantity Surveyor"
+        ]
+      },
+      "B.Tech Aeronautical Engineering": {
+        "duration": "4 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th PCM with minimum 60% + JEE Main/MHT-CET or institute norms",
+        "course_start": "August-September",
+        "key_documents": [
+          "12th PCM marksheet",
+          "JEE Main/MHT-CET scorecard",
+          "Transfer certificate",
+          "ID proof and photos"
+        ],
+        "major_subjects": [
+          "Aerodynamics",
+          "Aircraft Structures",
+          "Propulsion",
+          "Flight Mechanics",
+          "Avionics basics"
+        ],
+        "placement_roles": [
+          "Aerospace Design Trainee",
+          "MRO Support Engineer",
+          "Simulation Trainee"
+        ]
+      }
+    },
+    "computer_applications": {
+      "BCA": {
+        "duration": "3 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th pass with minimum 50-55%",
+        "course_start": "July-August",
+        "major_subjects": [
+          "Programming",
+          "Web Development",
+          "Databases",
+          "Computer Networks"
+        ],
+        "placement_roles": [
+          "Junior Developer",
+          "Support Engineer",
+          "Data Associate"
+        ]
+      },
+      "MCA": {
+        "duration": "2 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "Relevant graduation with minimum 50-55%",
+        "course_start": "August",
+        "major_subjects": [
+          "Advanced Programming",
+          "Cloud and DevOps",
+          "AI/ML foundations",
+          "Full Stack Development"
+        ],
+        "placement_roles": [
+          "Software Engineer",
+          "Full Stack Developer",
+          "System Analyst"
+        ]
+      }
+    },
+    "management": {
+      "BBA": {
+        "duration": "3 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th pass with minimum 50%",
+        "course_start": "July-August",
+        "major_subjects": [
+          "Marketing",
+          "Finance",
+          "HR",
+          "Business Analytics basics"
+        ],
+        "placement_roles": [
+          "Management Trainee",
+          "Sales Associate",
+          "HR Executive"
+        ]
+      },
+      "MBA": {
+        "duration": "2 years",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "Graduation + CAT/MAT/CET/Institute test",
+        "course_start": "August-September",
+        "major_subjects": [
+          "Strategic Management",
+          "Business Analytics",
+          "Operations",
+          "Finance and Marketing"
+        ],
+        "placement_roles": [
+          "Business Analyst",
+          "Management Trainee",
+          "Marketing Analyst"
+        ]
+      }
+    },
+    "other_programs": {
+      "BA LLB": {
+        "duration": "5 years",
+        "annual_fees": "INR 1,05,000 (approx)",
+        "eligibility": "12th pass with minimum 45-50%",
+        "course_start": "August",
+        "major_subjects": [
+          "Constitutional Law",
+          "Criminal Law",
+          "Civil Procedure",
+          "Moot Court"
+        ],
+        "placement_roles": [
+          "Legal Associate",
+          "Compliance Trainee"
+        ]
+      },
+      "BBA LLB": {
+        "duration": "5 years",
+        "annual_fees": "INR 1,10,000 (approx)",
+        "eligibility": "12th pass with minimum 45-50%",
+        "course_start": "August",
+        "major_subjects": [
+          "Corporate Law",
+          "Business Management",
+          "Taxation basics",
+          "Legal drafting"
+        ],
+        "placement_roles": [
+          "Corporate Legal Associate",
+          "Compliance Executive"
+        ]
+      },
+      "Mass Communication": {
+        "duration": "3 years (UG)",
+        "annual_fees": "INR 95,000-1,10,000 (approx)",
+        "eligibility": "12th pass",
+        "course_start": "July-August",
+        "major_subjects": [
+          "Journalism",
+          "Digital Media",
+          "Video Production",
+          "Advertising and PR"
+        ],
+        "placement_roles": [
+          "Media Executive",
+          "Content Writer",
+          "Digital Marketing Associate"
+        ]
+      },
+      "Architecture": {
+        "duration": "5 years",
+        "annual_fees": "INR 1,20,000-1,50,000 (approx)",
+        "eligibility": "12th PCM + architecture aptitude norms",
+        "course_start": "August",
+        "major_subjects": [
+          "Architectural Design",
+          "Building Construction",
+          "Urban Planning",
+          "Sustainable Architecture"
+        ],
+        "placement_roles": [
+          "Junior Architect",
+          "Design Assistant",
+          "Planning Intern"
+        ]
+      }
+    }
+  },
+  
   "contact_for_admission_queries": {
     "admission_office": {
       "phone": "+91-9876543210",

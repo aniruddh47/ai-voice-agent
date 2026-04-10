@@ -20,10 +20,10 @@ if (-not (Test-Path "$RootDir\.venv")) {
 }
 
 # Check if frontend dependencies are installed
-if (-not (Test-Path "$RootDir\frontend\node_modules")) {
+if (-not (Test-Path "$RootDir\chat-ui\node_modules")) {
     Write-Host "Warning: Frontend dependencies not installed" -ForegroundColor Yellow
     Write-Host "Installing npm packages..." -ForegroundColor Cyan
-    Set-Location "$RootDir\frontend"
+    Set-Location "$RootDir\chat-ui"
     & npm install
     Set-Location $RootDir
 }
@@ -38,39 +38,39 @@ $apiProcess = Start-Process `
     -NoNewWindow `
     -PassThru
 
-Write-Host "✅ Backend PID: $($apiProcess.Id)" -ForegroundColor Green
+Write-Host "[OK] Backend PID: $($apiProcess.Id)" -ForegroundColor Green
 
 # Wait for API to initialize
-Write-Host "⏳ Waiting for API to initialize..." -ForegroundColor Yellow
+Write-Host "Waiting for API to initialize..." -ForegroundColor Yellow
 Start-Sleep -Seconds 3
 
-Write-Host "`n[2/2] Starting React Frontend (Port 5173)..." -ForegroundColor Cyan
+Write-Host "`n[2/2] Starting React Frontend (Port 3000)..." -ForegroundColor Cyan
 
 # Start React frontend in background process
 $reactProcess = Start-Process `
     -FilePath "npm" `
     -ArgumentList "run dev" `
-    -WorkingDirectory "$RootDir\frontend" `
+    -WorkingDirectory "$RootDir\chat-ui" `
     -NoNewWindow `
     -PassThru
 
-Write-Host "✅ Frontend PID: $($reactProcess.Id)" -ForegroundColor Green
+Write-Host "[OK] Frontend PID: $($reactProcess.Id)" -ForegroundColor Green
 
 Write-Host "`n======================================" -ForegroundColor Green
-Write-Host "  ✅ System Started Successfully!" -ForegroundColor Green
+Write-Host "  [OK] System Started Successfully!" -ForegroundColor Green
 Write-Host "======================================`n" -ForegroundColor Green
 
 Write-Host "Backend:  " -ForegroundColor Cyan -NoNewline
 Write-Host "http://localhost:5000" -ForegroundColor Yellow
 
 Write-Host "Frontend: " -ForegroundColor Cyan -NoNewline
-Write-Host "http://localhost:5173" -ForegroundColor Yellow
+Write-Host "http://localhost:3000" -ForegroundColor Yellow
 
-Write-Host "`n🌐 Opening browser in 2 seconds..." -ForegroundColor Cyan
+Write-Host "`nOpening browser in 2 seconds..." -ForegroundColor Cyan
 Start-Sleep -Seconds 2
-Start-Process "http://localhost:5173"
+Start-Process "http://localhost:3000"
 
-Write-Host "`n💡 Press Ctrl+C to stop all services`n" -ForegroundColor Magenta
+Write-Host "`nPress Ctrl+C to stop all services`n" -ForegroundColor Magenta
 
 # Keep window open and monitor processes
 try {
@@ -78,12 +78,12 @@ try {
         Start-Sleep -Seconds 2
         
         if (-not (Get-Process -Id $apiProcess.Id -ErrorAction SilentlyContinue)) {
-            Write-Host "`n⚠️  API Server stopped" -ForegroundColor Yellow
+            Write-Host "`n[WARN] API Server stopped" -ForegroundColor Yellow
             break
         }
         
         if (-not (Get-Process -Id $reactProcess.Id -ErrorAction SilentlyContinue)) {
-            Write-Host "`n⚠️  React Frontend stopped" -ForegroundColor Yellow
+            Write-Host "`n[WARN] React Frontend stopped" -ForegroundColor Yellow
             break
         }
     }
@@ -93,5 +93,5 @@ catch {
     Write-Host "`n`nShutting down services..." -ForegroundColor Yellow
     Stop-Process -Id $apiProcess.Id -ErrorAction SilentlyContinue
     Stop-Process -Id $reactProcess.Id -ErrorAction SilentlyContinue
-    Write-Host "✅ All services stopped." -ForegroundColor Green
+    Write-Host "[OK] All services stopped." -ForegroundColor Green
 }

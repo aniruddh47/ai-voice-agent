@@ -1,61 +1,451 @@
 {
   "university_overview": {
-    "about": "Sanjay Ghodawat University (SGU) is a premier educational institution located in Kolhapur, Maharashtra. Spread across a lush 165-acre campus, we focus on industry-aligned education.",
-    "accreditations": "We are AICTE Approved, NAAC A Grade, and NBA Accredited.",
-    "working_hours": "The admission office is open Monday to Saturday, 9:00 AM to 5:00 PM."
+    "about": "Sanjay Ghodawat University (SGU), Kolhapur, offers industry-aligned programs with practical training, internships, and placement support.",
+    "accreditations": "AICTE approved, NAAC A Grade, NBA accredited programs (as applicable).",
+    "working_hours": "Admission office: Monday to Saturday, 9:00 AM to 5:00 PM."
   },
-
   "admissions": {
-    "eligibility": "For Undergraduate programs like B.Tech and BCA, students must score above 70% in their 12th board exams in relevant subjects.",
-    "entrance_exams": "For B.Tech, valid scores in JEE Main or MHT-CET are mandatory. For MBA, exams like MAH-MBA-CET, CAT, or MAT are required.",
-    "process": "The admission process is straightforward: 1. Fill out the online application. 2. Submit entrance exam scores. 3. Attend counseling or an interview if shortlisted. 4. Pay the admission confirmation fee.",
-    "documents": "Parents will need to bring the student's 10th and 12th mark sheets, Entrance Exam Scorecard, Transfer Certificate, Aadhar Card, and passport-size photos."
+    "general_eligibility_note": "Eligibility may vary by course and latest university notification.",
+    "process": "Apply online, upload documents, submit merit/entrance details, complete counseling, and pay confirmation fee.",
+    "documents_common": [
+      "10th marksheet and passing certificate",
+      "12th marksheet and passing certificate",
+      "Transfer/Leaving certificate",
+      "Aadhar card",
+      "Passport-size photos",
+      "Entrance scorecard (where applicable)",
+      "Caste/Income/Domicile certificate (if applicable)"
+    ]
   },
-
   "departments": {
     "btech_software": {
-      "courses": "B.Tech in Artificial Intelligence & Machine Learning (AIML) and Computer Science Engineering (CSE).",
-      "fees": "1.35 Lakhs per year.",
-      "syllabus_highlights": "The curriculum focuses heavily on Python, Neural Networks, Cloud Computing, Data Structures, and Software Development.",
-      "facilities": "Students have access to high-end computing labs with the latest GPUs for AI training."
+      "category_overview": "Software-oriented engineering programs with coding, cloud, AI, and product development focus.",
+      "course_details": {
+        "B.Tech CSE": {
+          "duration": "4 years (8 semesters)",
+          "annual_fees": "INR 1,35,000",
+          "eligibility": "12th PCM with minimum 60% (recommended 70%+) + JEE Main/MHT-CET or institute norms",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Programming in C, C++, Python, Java",
+            "Data Structures and Algorithms",
+            "Database Management Systems",
+            "Operating Systems and Computer Networks",
+            "Web, Mobile, and Full Stack Development",
+            "Software Engineering and DevOps",
+            "Cyber Security and Cloud Fundamentals"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "JEE Main/MHT-CET scorecard",
+            "School leaving certificate"
+          ],
+          "placement_support": {
+            "roles": [
+              "Software Developer",
+              "Backend Developer",
+              "QA Engineer",
+              "Cloud Engineer"
+            ],
+            "average_package": "INR 4.5-6.0 LPA",
+            "top_recruiters": [
+              "TCS",
+              "Infosys",
+              "Cognizant",
+              "Capgemini"
+            ]
+          }
+        },
+        "B.Tech AIML": {
+          "duration": "4 years (8 semesters)",
+          "annual_fees": "INR 1,35,000",
+          "eligibility": "12th PCM with minimum 60% (recommended 70%+) + JEE Main/MHT-CET or institute norms",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Python for AI and Data Analysis",
+            "Linear Algebra, Probability, and Statistics",
+            "Machine Learning and Deep Learning",
+            "Computer Vision and NLP",
+            "MLOps and Model Deployment",
+            "Data Engineering and Big Data tools",
+            "AI Ethics and Responsible AI"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "Entrance scorecard",
+            "Aadhar and photos"
+          ],
+          "placement_support": {
+            "roles": [
+              "ML Engineer",
+              "Data Analyst",
+              "AI Associate",
+              "NLP Engineer"
+            ],
+            "average_package": "INR 5.0-7.0 LPA",
+            "top_recruiters": [
+              "Accenture",
+              "Persistent",
+              "TCS AI units",
+              "Analytics startups"
+            ]
+          }
+        }
+      }
     },
     "btech_core": {
-      "courses": "B.Tech in Civil, Mechanical, and Aeronautical Engineering.",
-      "fees": "1 Lakh per year.",
-      "syllabus_highlights": "Focuses on CAD/CAM, Thermodynamics, Structural Engineering, and Aerodynamics.",
-      "facilities": "Features massive mechanical workshops, wind tunnel testing for Aero, and heavy machinery labs."
+      "category_overview": "Core engineering programs with practical labs, design tools, and industry-oriented projects.",
+      "course_details": {
+        "B.Tech Mechanical Engineering": {
+          "duration": "4 years (8 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Engineering Mechanics and Strength of Materials",
+            "Thermodynamics and Fluid Mechanics",
+            "Manufacturing Processes",
+            "Machine Design and CAD/CAM",
+            "Automobile basics",
+            "Industrial Engineering and Quality Control"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "Entrance scorecard",
+            "Transfer certificate"
+          ],
+          "placement_support": {
+            "roles": [
+              "Production Engineer",
+              "Design Engineer",
+              "Quality Engineer",
+              "Maintenance Engineer"
+            ],
+            "average_package": "INR 4.0-5.2 LPA"
+          }
+        },
+        "B.Tech Civil Engineering": {
+          "duration": "4 years (8 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Surveying and Geomatics",
+            "Building Materials and Construction Technology",
+            "Structural Analysis and RCC Design",
+            "Soil Mechanics and Foundation Engineering",
+            "Transportation and Highway Engineering",
+            "Water Resources and Environmental Engineering"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "Entrance scorecard",
+            "Leaving certificate"
+          ],
+          "placement_support": {
+            "roles": [
+              "Site Engineer",
+              "QS Engineer",
+              "Planning Engineer",
+              "Design Trainee"
+            ],
+            "average_package": "INR 3.8-5.0 LPA"
+          }
+        },
+        "B.Tech Aeronautical Engineering": {
+          "duration": "4 years (8 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "12th PCM with minimum 60% (recommended 70%+) + JEE Main/MHT-CET or institute norms",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Engineering Mathematics and Engineering Physics",
+            "Aerodynamics and Aircraft Performance",
+            "Aircraft Structures and Materials",
+            "Aircraft Propulsion and Gas Turbines",
+            "Flight Mechanics and Stability",
+            "Avionics Fundamentals",
+            "CAD/CAM for Aerospace Design",
+            "Maintenance, Safety, and DGCA basics"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "JEE Main/MHT-CET scorecard",
+            "Transfer certificate",
+            "Aadhar and photos"
+          ],
+          "placement_support": {
+            "roles": [
+              "Graduate Trainee Engineer (Aero)",
+              "Aircraft Maintenance Support",
+              "Design and Simulation Trainee",
+              "Quality and Testing Engineer"
+            ],
+            "average_package": "INR 4.2-6.5 LPA",
+            "internship_domains": [
+              "Aerospace design",
+              "MRO support",
+              "CAD simulation",
+              "Manufacturing quality"
+            ]
+          }
+        }
+      }
     },
     "computer_applications": {
-      "courses": "BCA (Undergraduate) and MCA (Postgraduate).",
-      "fees": "1 Lakh per year for both programs.",
-      "details": "Perfect for students wanting to jump directly into software engineering, web development, and IT management without a core engineering degree."
+      "category_overview": "Application-focused programs for software, systems, data, and enterprise IT roles.",
+      "course_details": {
+        "BCA": {
+          "duration": "3 years (6 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "12th pass (any stream with preference for Maths/Computer) minimum 50-55%",
+          "course_start_month": "July-August",
+          "what_will_be_taught": [
+            "Programming with C, C++, Java, Python",
+            "Web Development (HTML, CSS, JavaScript, React basics)",
+            "Database and SQL",
+            "Computer Networks and Cyber Security basics",
+            "Software Testing and Project Development",
+            "Fundamentals of Cloud and Data Analytics"
+          ],
+          "key_documents": [
+            "10th and 12th marksheets",
+            "Leaving certificate",
+            "ID proof"
+          ],
+          "placement_support": {
+            "roles": [
+              "Junior Developer",
+              "Web Developer",
+              "Support Engineer",
+              "Data Associate"
+            ],
+            "average_package": "INR 3.2-4.8 LPA"
+          }
+        },
+        "MCA": {
+          "duration": "2 years (4 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "Graduation in relevant field with minimum 50-55% as per university norms",
+          "course_start_month": "August",
+          "what_will_be_taught": [
+            "Advanced Java and Python",
+            "Data Structures and Advanced Algorithms",
+            "Cloud Computing and DevOps",
+            "AI/ML and Data Science foundations",
+            "Full Stack Development",
+            "Major industry project"
+          ],
+          "key_documents": [
+            "UG degree marksheets",
+            "Migration/transfer certificate",
+            "Aadhar and photos"
+          ],
+          "placement_support": {
+            "roles": [
+              "Software Engineer",
+              "Full Stack Developer",
+              "System Analyst",
+              "Cloud Operations Associate"
+            ],
+            "average_package": "INR 4.5-6.5 LPA"
+          }
+        }
+      }
     },
     "management": {
-      "courses": "BBA and MBA.",
-      "fees": "1 Lakh per year for both programs.",
-      "details": "Specializations are available in Finance, Marketing, HR, and Business Analytics. We focus heavily on case studies and corporate internships."
+      "category_overview": "Business and leadership programs with analytics, internships, and corporate exposure.",
+      "course_details": {
+        "BBA": {
+          "duration": "3 years (6 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "12th pass in any stream with minimum 50%",
+          "course_start_month": "July-August",
+          "what_will_be_taught": [
+            "Principles of Management",
+            "Marketing, HR, Finance basics",
+            "Business Communication and Soft Skills",
+            "Business Statistics and Research",
+            "Entrepreneurship and Startup fundamentals",
+            "Digital Marketing and Business Analytics intro"
+          ],
+          "key_documents": [
+            "10th and 12th marksheets",
+            "Leaving certificate",
+            "Photos and ID proof"
+          ],
+          "placement_support": {
+            "roles": [
+              "Management Trainee",
+              "Sales and Marketing Associate",
+              "HR Executive",
+              "Operations Associate"
+            ],
+            "average_package": "INR 3.5-5.0 LPA"
+          }
+        },
+        "MBA": {
+          "duration": "2 years (4 semesters)",
+          "annual_fees": "INR 1,00,000",
+          "eligibility": "Graduate with minimum 50% + CAT/MAT/CET/Institute test as applicable",
+          "course_start_month": "August-September",
+          "what_will_be_taught": [
+            "Managerial Economics and Accounting",
+            "Financial Management and Corporate Finance",
+            "Marketing Management and Consumer Behavior",
+            "HR Analytics and Organizational Behavior",
+            "Operations and Supply Chain Management",
+            "Business Analytics tools (Excel, Power BI, basics of SQL)",
+            "Summer internship and capstone"
+          ],
+          "key_documents": [
+            "UG marksheets and degree",
+            "Entrance scorecard",
+            "Work experience proof (if any)"
+          ],
+          "placement_support": {
+            "roles": [
+              "Business Analyst",
+              "Management Trainee",
+              "Marketing Analyst",
+              "HR Business Partner Trainee"
+            ],
+            "average_package": "INR 5.0-8.0 LPA"
+          }
+        }
+      }
     },
     "other_programs": {
-      "courses": "Law (BA LLB / BBA LLB), Mass Communication, and Architecture.",
-      "fees": "Approximately 1 Lakh per year.",
-      "details": "These programs feature moot courts for Law, design studios for Architecture, and media labs for Mass Comm."
+      "category_overview": "Specialized professional programs with domain labs/studios and practical training.",
+      "course_details": {
+        "BA LLB": {
+          "duration": "5 years (integrated)",
+          "annual_fees": "INR 1,05,000 (approx)",
+          "eligibility": "12th pass with minimum 45-50% as per legal education norms",
+          "course_start_month": "August",
+          "what_will_be_taught": [
+            "Constitutional Law",
+            "Contract and Tort Law",
+            "Criminal and Civil Procedure",
+            "Moot Court and Drafting",
+            "Legal Research and Writing"
+          ],
+          "key_documents": [
+            "12th marksheet",
+            "ID proof",
+            "Transfer certificate"
+          ],
+          "placement_support": {
+            "roles": [
+              "Legal Associate",
+              "Litigation Intern",
+              "Compliance Executive"
+            ],
+            "average_package": "INR 3.5-5.5 LPA"
+          }
+        },
+        "BBA LLB": {
+          "duration": "5 years (integrated)",
+          "annual_fees": "INR 1,10,000 (approx)",
+          "eligibility": "12th pass with minimum 45-50%",
+          "course_start_month": "August",
+          "what_will_be_taught": [
+            "Law fundamentals with business management",
+            "Corporate Law",
+            "Taxation basics",
+            "Business Communication",
+            "Moot court and internship"
+          ],
+          "key_documents": [
+            "12th marksheet",
+            "Leaving certificate",
+            "Aadhar"
+          ],
+          "placement_support": {
+            "roles": [
+              "Corporate Legal Associate",
+              "Compliance Analyst",
+              "Legal Process Executive"
+            ],
+            "average_package": "INR 4.0-6.0 LPA"
+          }
+        },
+        "Mass Communication": {
+          "duration": "3 years (UG) / 2 years (PG track as applicable)",
+          "annual_fees": "INR 95,000-1,10,000 (approx)",
+          "eligibility": "12th pass for UG; graduation for PG track",
+          "course_start_month": "July-August",
+          "what_will_be_taught": [
+            "Journalism and News Writing",
+            "Digital Media Production",
+            "Video Editing and Broadcast basics",
+            "Advertising and PR",
+            "Media Ethics and Communication Theory"
+          ],
+          "key_documents": [
+            "Previous qualification marksheets",
+            "ID proof",
+            "Photos"
+          ],
+          "placement_support": {
+            "roles": [
+              "Content Writer",
+              "Media Executive",
+              "Digital Marketing Associate",
+              "Video Production Assistant"
+            ],
+            "average_package": "INR 3.0-5.0 LPA"
+          }
+        },
+        "Architecture": {
+          "duration": "5 years (B.Arch)",
+          "annual_fees": "INR 1,20,000-1,50,000 (approx)",
+          "eligibility": "12th PCM + aptitude requirements as per architecture norms",
+          "course_start_month": "August",
+          "what_will_be_taught": [
+            "Architectural Design Studios",
+            "Building Construction and Materials",
+            "Structural Systems",
+            "Urban Planning",
+            "Environmental and Sustainable Design",
+            "CAD and 3D visualization"
+          ],
+          "key_documents": [
+            "12th PCM marksheet",
+            "Aptitude scorecard (if applicable)",
+            "Portfolio/interview documents as required"
+          ],
+          "placement_support": {
+            "roles": [
+              "Junior Architect",
+              "Design Assistant",
+              "Planning Intern",
+              "3D Visualization Associate"
+            ],
+            "average_package": "INR 4.0-6.5 LPA"
+          }
+        }
+      }
     }
   },
-
   "campus_life": {
-    "hostel": "We provide highly secure, separate hostels for boys and girls. The fee is 60,000 INR per year. Rooms come with Wi-Fi, study desks, and 24/7 warden security.",
-    "mess_and_food": "The mess fee is 4,000 INR per month, serving nutritious and hygienic meals. The campus also features a large food court and multiple cafes for students to hang out.",
-    "convenience": "Students don't need to leave campus for basics. We have an on-campus laundry service, a local mart for daily needs, and ATMs.",
-    "sports": "We boast world-class sporting facilities including a full-sized cricket stadium, a football stadium, basketball courts, and an indoor gym."
+    "hostel": "Separate hostels for boys and girls with security and wardens. Approx hostel fee INR 60,000 per year.",
+    "mess_and_food": "Mess around INR 4,000 per month; food court and cafes available.",
+    "convenience": "Wi-Fi campus, laundry, grocery store, ATM, and transport support.",
+    "sports": "Cricket, football, basketball, gym, and indoor sports facilities."
   },
-
   "career_and_placements": {
-    "stats": "SGU has a phenomenal placement record. The average package is between 4 to 5 LPA, with our highest package hitting 15 LPA.",
-    "top_recruiters": "Our top recruiters include global giants like Bentley, Tata Motors, Emicon, TCS, and Infosys.",
-    "training": "The placement cell provides rigorous training in soft skills, aptitude tests, and mock interviews from the 3rd year onwards."
+    "stats": "Average placement package around INR 4-6 LPA; top offers can be higher depending on program and year.",
+    "top_recruiters": [
+      "TCS",
+      "Infosys",
+      "Cognizant",
+      "Bentley",
+      "Tata Motors",
+      "Capgemini"
+    ],
+    "training": "Aptitude, communication, coding practice, mock interviews, resume building, and internship guidance from pre-final year."
   },
-
   "transportation": {
-    "details": "We have a massive fleet of safe, comfortable college buses that provide daily pickup and drop-off services for students traveling from Sangli, Ichalkaranji, and all across Kolhapur."
+    "details": "Bus routes available across Kolhapur, Sangli, and nearby areas."
   }
 }

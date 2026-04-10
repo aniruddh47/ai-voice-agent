@@ -4,214 +4,357 @@
       "head_of_department": "Dr. Rajesh Kumar",
       "established": "2012",
       "total_faculty": 25,
+      "course_profile": {
+        "course_name": "B.Tech CSE",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,35,000",
+        "eligibility": "12th PCM with minimum 60% + entrance as per norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "10th and 12th marksheets",
+          "Entrance scorecard",
+          "Transfer certificate",
+          "Aadhar and photos"
+        ],
+        "what_will_be_taught": [
+          "Programming (C/C++/Java/Python)",
+          "DSA and problem solving",
+          "DBMS, OS, CN",
+          "Software engineering and DevOps",
+          "Web and mobile development",
+          "Cloud and security fundamentals"
+        ],
+        "placements": {
+          "average_package": "INR 4.5-6.0 LPA",
+          "highest_package": "INR 12-15 LPA (varies)",
+          "roles": [
+            "Software Developer",
+            "Backend Engineer",
+            "QA Engineer",
+            "Cloud Associate"
+          ]
+        }
+      },
       "labs": [
         {
           "name": "Advanced Computing Lab",
           "systems": 60,
-          "software": ["Python", "Java", "C++", "MATLAB", "VS Code", "Eclipse"]
+          "software": [
+            "Python",
+            "Java",
+            "C++",
+            "MATLAB",
+            "VS Code",
+            "Eclipse"
+          ]
         },
         {
           "name": "AI & Machine Learning Lab",
           "systems": 40,
-          "software": ["TensorFlow", "PyTorch", "Keras", "Jupyter", "Anaconda"],
+          "software": [
+            "TensorFlow",
+            "PyTorch",
+            "Keras",
+            "Jupyter",
+            "Anaconda"
+          ],
           "gpu_systems": 10
-        },
-        {
-          "name": "Network & Security Lab",
-          "systems": 50,
-          "software": ["Cisco Packet Tracer", "Wireshark", "Kali Linux"]
-        },
-        {
-          "name": "IoT & Embedded Systems Lab",
-          "arduino_kits": 30,
-          "raspberry_pi": 20,
-          "sensors": "Various sensors for projects"
         }
-      ],
-      "specializations": [
-        "Artificial Intelligence & Machine Learning",
-        "Data Science",
-        "Cyber Security",
-        "Cloud Computing",
-        "IoT"
-      ],
-      "faculty_details": [
-        {
-          "name": "Dr. Rajesh Kumar",
-          "designation": "Professor & HOD",
-          "qualification": "Ph.D. in Computer Science",
-          "experience": "18 years",
-          "specialization": "Machine Learning, Data Mining"
-        },
-        {
-          "name": "Dr. Priya Sharma",
-          "designation": "Associate Professor",
-          "qualification": "Ph.D. in AI",
-          "experience": "12 years",
-          "specialization": "Artificial Intelligence, Deep Learning"
-        },
-        {
-          "name": "Prof. Amit Patil",
-          "designation": "Assistant Professor",
-          "qualification": "M.Tech, pursuing Ph.D.",
-          "experience": "8 years",
-          "specialization": "Cloud Computing, Distributed Systems"
-        }
-      ],
-      "student_projects": [
-        "AI-based Disease Prediction System",
-        "Smart Agriculture using IoT",
-        "Blockchain for Supply Chain",
-        "Face Recognition Attendance System"
-      ],
-      "industry_collaborations": [
-        "IBM for Cloud Computing",
-        "Microsoft for Azure Training",
-        "AWS Academy Program",
-        "Google Cloud Credits Program"
-      ],
-      "achievements": [
-        "Students won Smart India Hackathon 2024",
-        "Published 15+ research papers in 2024",
-        "3 patents filed in AI domain"
       ]
     },
-    
     "Artificial Intelligence & Machine Learning (AIML)": {
       "head_of_department": "Dr. Sneha Deshmukh",
       "established": "2020",
       "total_faculty": 15,
+      "course_profile": {
+        "course_name": "B.Tech AIML",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,35,000",
+        "eligibility": "12th PCM with minimum 60% + entrance as per norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "ID proof and photos"
+        ],
+        "what_will_be_taught": [
+          "Python, statistics, and linear algebra",
+          "Machine learning and deep learning",
+          "Computer vision and NLP",
+          "Data engineering and MLOps",
+          "AI model deployment and ethics"
+        ],
+        "placements": {
+          "average_package": "INR 5.0-7.0 LPA",
+          "highest_package": "INR 14-16 LPA (varies)",
+          "roles": [
+            "ML Engineer",
+            "Data Analyst",
+            "AI Associate",
+            "NLP/Computer Vision Trainee"
+          ]
+        }
+      },
       "labs": [
         {
           "name": "Deep Learning Lab",
           "gpu_workstations": 15,
-          "software": ["TensorFlow", "PyTorch", "Keras", "CUDA"],
-          "cloud_access": "AWS, Google Cloud credits"
+          "software": [
+            "TensorFlow",
+            "PyTorch",
+            "Keras",
+            "CUDA"
+          ]
         },
         {
           "name": "Computer Vision Lab",
           "cameras": 20,
-          "image_processing_tools": ["OpenCV", "PIL", "scikit-image"]
-        },
-        {
-          "name": "NLP Lab",
-          "systems": 40,
-          "tools": ["NLTK", "spaCy", "Transformers", "GPT models"]
+          "image_processing_tools": [
+            "OpenCV",
+            "PIL",
+            "scikit-image"
+          ]
         }
-      ],
-      "curriculum_highlights": [
-        "Advanced Machine Learning",
-        "Deep Learning & Neural Networks",
-        "Natural Language Processing",
-        "Computer Vision",
-        "Reinforcement Learning",
-        "MLOps & Model Deployment"
-      ],
-      "industry_training": [
-        "NVIDIA Deep Learning Institute certification",
-        "Google AI courses",
-        "Kaggle competitions participation"
       ]
     },
-    
     "Mechanical Engineering": {
       "head_of_department": "Dr. Vijay Kulkarni",
       "established": "2012",
       "total_faculty": 20,
+      "course_profile": {
+        "course_name": "B.Tech Mechanical Engineering",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "Transfer certificate"
+        ],
+        "what_will_be_taught": [
+          "Engineering mechanics",
+          "Thermodynamics",
+          "Manufacturing and workshop practice",
+          "Machine design",
+          "CAD/CAM and industrial automation"
+        ],
+        "placements": {
+          "average_package": "INR 4.2 LPA",
+          "highest_package": "INR 12 LPA",
+          "companies": [
+            "Tata Motors",
+            "Mahindra",
+            "L&T",
+            "Thermax"
+          ]
+        }
+      },
       "labs": [
         {
           "name": "Workshop",
-          "equipment": ["Lathe machines", "Milling machines", "Drilling machines", "Welding equipment"]
+          "equipment": [
+            "Lathe machines",
+            "Milling machines",
+            "Drilling machines",
+            "Welding equipment"
+          ]
         },
         {
           "name": "CAD/CAM Lab",
           "systems": 50,
-          "software": ["AutoCAD", "SolidWorks", "CATIA", "ANSYS"]
-        },
-        {
-          "name": "Thermal Engineering Lab",
-          "equipment": ["IC Engine setup", "Refrigeration system", "Heat exchangers"]
-        },
-        {
-          "name": "Material Testing Lab",
-          "equipment": ["UTM", "Hardness testing", "Impact testing"]
+          "software": [
+            "AutoCAD",
+            "SolidWorks",
+            "CATIA",
+            "ANSYS"
+          ]
         }
-      ],
-      "specializations": [
-        "Automobile Engineering",
-        "Thermal Engineering",
-        "Design Engineering",
-        "Manufacturing"
-      ],
-      "placements_specific": {
-        "companies": ["Tata Motors", "Mahindra", "L&T", "Thermax"],
-        "average_package": "₹4.2 LPA",
-        "highest_package": "₹12 LPA"
-      }
+      ]
     },
-    
     "Civil Engineering": {
       "head_of_department": "Dr. Madhav Joshi",
       "established": "2012",
       "total_faculty": 18,
+      "course_profile": {
+        "course_name": "B.Tech Civil Engineering",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,00,000",
+        "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "Leaving certificate"
+        ],
+        "what_will_be_taught": [
+          "Surveying and GIS basics",
+          "RCC and steel design",
+          "Soil mechanics",
+          "Construction management",
+          "Transportation and environmental engineering"
+        ],
+        "placements": {
+          "average_package": "INR 3.8-5.0 LPA",
+          "roles": [
+            "Site Engineer",
+            "Planning Engineer",
+            "Quantity Surveyor"
+          ]
+        }
+      },
       "labs": [
         {
           "name": "Surveying Lab",
-          "equipment": ["Total stations", "Theodolites", "Levels", "GPS"]
-        },
-        {
-          "name": "Concrete & Highway Lab",
-          "testing_equipment": ["Compression testing machine", "Marshall stability test"]
-        },
-        {
-          "name": "Geotechnical Lab",
-          "tests": ["Soil analysis", "CBR test", "Shear strength test"]
+          "equipment": [
+            "Total stations",
+            "Theodolites",
+            "Levels",
+            "GPS"
+          ]
         },
         {
           "name": "CAD Lab",
-          "software": ["AutoCAD Civil 3D", "STAAD Pro", "ETABS"]
+          "software": [
+            "AutoCAD Civil 3D",
+            "STAAD Pro",
+            "ETABS"
+          ]
+        }
+      ]
+    },
+    "Aeronautical Engineering": {
+      "head_of_department": "Dr. Anil Deshpande",
+      "established": "2016",
+      "total_faculty": 14,
+      "course_profile": {
+        "course_name": "B.Tech Aeronautical Engineering",
+        "common_misspelling": "aeronotical engineering",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,00,000",
+        "first_installment_at_admission": "INR 70,000",
+        "eligibility": "12th PCM with minimum 60% (recommended 70%+) + JEE Main/MHT-CET or institute norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "10th and 12th marksheets",
+          "JEE Main/MHT-CET scorecard",
+          "Transfer/Leaving certificate",
+          "Aadhar card",
+          "Passport-size photos",
+          "Caste/Income/Domicile certificate if applicable"
+        ],
+        "what_will_be_taught": [
+          "Aerodynamics",
+          "Aircraft structures and aerospace materials",
+          "Aircraft propulsion and gas turbines",
+          "Flight mechanics and aircraft stability",
+          "Avionics basics",
+          "CAD/CAM for aircraft component design",
+          "Aircraft maintenance and safety standards"
+        ],
+        "placements": {
+          "average_package": "INR 4.2-6.5 LPA",
+          "roles": [
+            "Aerospace Design Trainee",
+            "Aircraft Maintenance Support Engineer",
+            "Simulation and Analysis Trainee",
+            "Quality and Testing Engineer"
+          ],
+          "internship_domains": [
+            "Aerospace CAD/CAE",
+            "MRO operations",
+            "Manufacturing quality",
+            "R&D support"
+          ]
+        }
+      },
+      "labs": [
+        {
+          "name": "Aerodynamics Lab",
+          "equipment": [
+            "Subsonic wind tunnel",
+            "Flow visualization setup",
+            "Pressure measurement kits"
+          ]
+        },
+        {
+          "name": "Aircraft Structures Lab",
+          "equipment": [
+            "Composite testing rig",
+            "Vibration analysis setup",
+            "Material fatigue apparatus"
+          ]
+        },
+        {
+          "name": "Propulsion and Simulation Lab",
+          "software": [
+            "ANSYS Fluent",
+            "CATIA",
+            "MATLAB/Simulink"
+          ]
         }
       ],
-      "site_visits": "Regular visits to construction sites, bridges, dams",
-      "govt_projects_exposure": true
+      "verification_note": "Final fee circular, seat matrix, and cutoff may change each admission cycle."
     },
-    
     "Electronics & Communication": {
       "head_of_department": "Dr. Sanjay Patil",
       "established": "2013",
       "total_faculty": 22,
+      "course_profile": {
+        "course_name": "B.Tech ECE",
+        "duration": "4 years (8 semesters)",
+        "annual_fees": "INR 1,10,000 (approx)",
+        "eligibility": "12th PCM with minimum 55-60% + entrance as per norms",
+        "course_start_month": "August-September",
+        "documents_required": [
+          "12th PCM marksheet",
+          "Entrance scorecard",
+          "ID proofs"
+        ],
+        "what_will_be_taught": [
+          "Analog and digital electronics",
+          "Signals and systems",
+          "Communication systems",
+          "VLSI and embedded systems",
+          "IoT and DSP"
+        ],
+        "placements": {
+          "average_package": "INR 4.0-5.8 LPA",
+          "roles": [
+            "Embedded Engineer",
+            "VLSI Trainee",
+            "Testing Engineer",
+            "IoT Developer"
+          ]
+        }
+      },
       "labs": [
         {
           "name": "VLSI Design Lab",
-          "software": ["Xilinx", "Cadence", "ModelSim"]
-        },
-        {
-          "name": "Communication Lab",
-          "equipment": ["Signal generators", "Oscilloscopes", "Spectrum analyzers"]
+          "software": [
+            "Xilinx",
+            "Cadence",
+            "ModelSim"
+          ]
         },
         {
           "name": "Embedded Systems Lab",
-          "microcontrollers": ["8051", "ARM", "Arduino", "Raspberry Pi"]
-        },
-        {
-          "name": "Digital Signal Processing Lab",
-          "dsp_kits": 30,
-          "software": ["MATLAB", "LabVIEW"]
+          "microcontrollers": [
+            "8051",
+            "ARM",
+            "Arduino",
+            "Raspberry Pi"
+          ]
         }
-      ],
-      "industry_certifications": [
-        "VLSI certification from industry",
-        "Embedded systems training",
-        "IoT certification programs"
       ]
     }
   },
-  
   "common_facilities_all_departments": {
-    "seminar_halls": "2 seminar halls per department with projector & audio system",
-    "student_project_rooms": "Dedicated rooms for final year projects",
+    "seminar_halls": "2 seminar halls per department with projector and audio system",
+    "student_project_rooms": "Dedicated rooms for mini and major projects",
     "faculty_cabins": "Individual cabins for senior faculty",
     "staff_rooms": "Common staff room with amenities",
-    "departmental_library": "Reference books specific to department"
+    "departmental_library": "Reference books and digital resources",
+    "placement_preparation_support": "Aptitude sessions, communication labs, mock interviews, and resume clinics"
   }
 }
