@@ -1,0 +1,30 @@
+{
+  "sessions": {
+    "386d8807-9c09-4193-8282-de2e330e4f83": {
+      "id": "386d8807-9c09-4193-8282-de2e330e4f83",
+      "started_at": "2026-04-21T09:33:05.494027Z",
+      "updated_at": "2026-04-21T09:33:29.999485Z",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Hello",
+          "timestamp": "2026-04-21T09:33:29.945914Z"
+        },
+        {
+          "role": "assistant",
+          "content": "Hello. Welcome to SGU Admission Counselor. How can I help you today?",
+          "timestamp": "2026-04-21T09:33:29.999485Z",
+          "metadata": {
+            "source": "rules"
+          }
+        }
+      ]
+    },
+    "a0056cc3-ceba-4a04-92c5-46616eb4f1b5": {
+      "id": "a0056cc3-ceba-4a04-92c5-46616eb4f1b5",
+      "started_at": "2026-04-21T09:33:05.867651Z",
+      "updated_at": "2026-04-21T09:33:05.867651Z",
+      "messages": []
+    }
+  }
+}

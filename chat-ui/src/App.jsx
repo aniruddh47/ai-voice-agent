@@ -16,6 +16,7 @@ function App() {
   const [micStatus, setMicStatus] = useState('')
   const [apiReady, setApiReady] = useState(false)
   const [activeApiBaseUrl, setActiveApiBaseUrl] = useState(`http://localhost:${API_PORT}`)
+  const [sessionId, setSessionId] = useState(null)
   
   const recognitionRef = useRef(null)
   const mediaRecorderRef = useRef(null)
@@ -23,6 +24,7 @@ function App() {
   const lockedVoiceRef = useRef(null)
   const isSpeakingRef = useRef(false)
   const speechQueueRef = useRef([])
+  const timeoutIdRef = useRef(null)
 
   const apiCandidates = useMemo(() => {
     const host = window.location.hostname || 'localhost'
@@ -34,6 +36,57 @@ function App() {
     return [...new Set(candidates)]
   }, [])
 
+  // Load or create chat session
+  const initializeOrLoadSession = useCallback(async (baseUrl) => {
+    try {
+      // Check if we have a stored session ID
+      const storedSessionId = localStorage.getItem('sgu_chat_session_id')
+      
+      if (storedSessionId) {
+        // Try to load existing session
+        try {
+          const response = await fetch(`${baseUrl}/api/chat-history/${storedSessionId}`)
+          if (response.ok) {
+            const data = await response.json()
+            // Load previous messages
+            if (data.messages && data.messages.length > 0) {
+              const loadedMessages = data.messages.map(msg => ({
+                sender: msg.role === 'user' ? 'user' : 'ai',
+                text: msg.content,
+                timestamp: new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              }))
+              setMessages(loadedMessages)
+            }
+            setSessionId(storedSessionId)
+            console.log(`✅ Loaded existing session: ${storedSessionId}`)
+            return storedSessionId
+          }
+        } catch (err) {
+          console.warn('⚠️ Failed to load existing session, creating new one')
+        }
+      }
+      
+      // Create new session
+      const response = await fetch(`${baseUrl}/api/chat-history/new`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        const newSessionId = data.session_id
+        localStorage.setItem('sgu_chat_session_id', newSessionId)
+        setSessionId(newSessionId)
+        console.log(`✅ Created new session: ${newSessionId}`)
+        return newSessionId
+      }
+    } catch (err) {
+      console.error('❌ Error initializing session:', err)
+    }
+    
+    return null
+  }, [])
+
   const checkApiHealth = useCallback(async () => {
     for (const baseUrl of apiCandidates) {
       try {
@@ -42,7 +95,13 @@ function App() {
           setActiveApiBaseUrl(baseUrl)
           setApiReady(true)
           console.log(`API Server connected at ${baseUrl}`)
-          return true
+          
+          // Initialize session when API becomes available
+          if (!sessionId) {
+            await initializeOrLoadSession(baseUrl)
+          }
+          
+          return baseUrl
         }
       } catch (err) {
         // Try next candidate URL.
@@ -50,25 +109,91 @@ function App() {
     }
 
     setApiReady(false)
-    return false
-  }, [apiCandidates])
+    return null
+  }, [apiCandidates, sessionId, initializeOrLoadSession])
 
   // Initialize app and check API
   useEffect(() => {
     const initApp = async () => {
       // Check API once on initial load
-      const healthy = await checkApiHealth()
-      if (!healthy) {
+      const baseUrl = await checkApiHealth()
+      
+      // Initialize session after API check if healthy
+      if (baseUrl && !sessionId) {
+        await initializeOrLoadSession(baseUrl)
+      } else if (!baseUrl) {
         console.error('⚠️ API Server not available on initial check')
       }
 
-      // Initialize Web Speech API
+      // Initialize Web Speech API with handlers defined ONCE
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
       if (SpeechRecognition) {
         recognitionRef.current = new SpeechRecognition()
-        recognitionRef.current.continuous = false
-        recognitionRef.current.interimResults = true
-        recognitionRef.current.lang = 'en-US'
+        const recognition = recognitionRef.current
+        recognition.continuous = false
+        recognition.interimResults = true
+        recognition.lang = 'en-US'
+
+        // ✅ Define handlers ONCE during initialization (not on every toggle)
+        recognition.onstart = () => {
+          console.log('🎤 Listening started')
+        }
+
+        recognition.onresult = (event) => {
+          let transcript = ''
+          
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript
+          }
+
+          // Show interim results
+          if (transcript) {
+            setMicStatus(`Heard: "${transcript}"`)
+          }
+
+          // If final result
+          if (event.results[event.results.length - 1].isFinal) {
+            if (transcript.trim()) {
+              // Send actual transcript to backend
+              console.log('✅ Final transcript:', transcript)
+              setMicStatus('Processing...')
+              setIsListening(false)
+              sendMessage(transcript.trim())
+            } else {
+              console.log('⚠️ Empty transcript, ready for next input')
+              setMicStatus('')
+              setIsListening(false)
+            }
+          }
+        }
+
+        recognition.onerror = (event) => {
+          console.error('❌ Speech recognition error:', event.error)
+          // ✅ CRITICAL: Abort the recognition to clean up state
+          recognition.abort()
+          setIsListening(false)
+          setMicStatus(`Error: ${event.error}`)
+          
+          // Clear timeout if it was waiting
+          if (timeoutIdRef.current) {
+            clearTimeout(timeoutIdRef.current)
+            timeoutIdRef.current = null
+          }
+          
+          // Auto-clear error message after 3 seconds
+          setTimeout(() => setMicStatus(''), 3000)
+        }
+
+        recognition.onend = () => {
+          console.log('🎤 Listening ended')
+          setIsListening(false)
+          
+          // ✅ Clear timeout when listening ends
+          if (timeoutIdRef.current) {
+            clearTimeout(timeoutIdRef.current)
+            timeoutIdRef.current = null
+          }
+        }
       }
 
       // Initialize and lock a single voice for TTS
@@ -103,32 +228,68 @@ function App() {
     initApp()
 
     // Keep checking API health so banner clears automatically
-    const healthTimer = setInterval(() => {
-      checkApiHealth()
+    const healthTimer = setInterval(async () => {
+      const baseUrl = await checkApiHealth()
+      // Initialize session if API just became available
+      if (baseUrl && !sessionId) {
+        await initializeOrLoadSession(baseUrl)
+      }
     }, 5000)
 
-    return () => clearInterval(healthTimer)
-  }, [checkApiHealth])
+    // Cleanup on unmount
+    return () => {
+      clearInterval(healthTimer)
+      // Abort recognition if still active
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort()
+        } catch (e) {
+          // Ignore abort errors
+        }
+      }
+      // Clear any pending timeout
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current)
+      }
+    }
+  }, [checkApiHealth, initializeOrLoadSession, sessionId])
 
   const handleStartCall = async () => {
     setCallActive(true)
-    setMessages([])
+    
+    // If no messages yet, add welcome message
+    if (messages.length === 0) {
+      const welcomeMsg = "Hello! Welcome to SGU Admission Counselor. How can I help you today?"
+      setMessages([
+        {
+          sender: 'ai',
+          text: welcomeMsg,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+      ])
+    }
+    
     setIsMicActive(true)
-
-    // Add welcome message
-    const welcomeMsg = "Hello! Welcome to SGU Admission Counselor. How can I help you today?"
-    setMessages([
-      {
-        sender: 'ai',
-        text: welcomeMsg,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }
-    ])
   }
 
   const handleEndCall = () => {
+    // ✅ Properly clean up recognition
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.abort()
+      } catch (e) {
+        // Ignore abort errors
+      }
+    }
+    
+    // ✅ Clear any pending timeout
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+      timeoutIdRef.current = null
+    }
+    
     setCallActive(false)
-    setMessages([])
+    // Note: Don't clear messages - they're now persisted
     setIsListening(false)
     setIsProcessing(false)
     setIsMicActive(false)
@@ -152,12 +313,17 @@ function App() {
       // Refresh API status before making the request
       await checkApiHealth()
 
+      const payload = { message: userMessage }
+      if (sessionId) {
+        payload.session_id = sessionId
+      }
+
       const response = await fetch(`${activeApiBaseUrl}/api/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify(payload)
       })
 
       if (!response.ok) {
@@ -269,63 +435,49 @@ function App() {
       return
     }
 
-    // Start listening
-    setIsListening(true)
-    setMicStatus('Recording audio...')
-    audioChunksRef.current = []
+    try {
+      setIsListening(true)
+      setMicStatus('Recording audio...')
+      audioChunksRef.current = []
 
-    const recognition = recognitionRef.current
+      const recognition = recognitionRef.current
 
-    recognition.onstart = () => {
-      console.log('🎤 Listening started')
-    }
+      // ✅ CRITICAL: Ensure we start fresh by aborting any previous session
+      recognition.abort()
 
-    recognition.onresult = (event) => {
-      let transcript = ''
+      // ✅ Small delay to ensure abort completes before restarting
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      // ✅ Now start listening fresh
+      recognition.start()
+      console.log('✅ Recognition started cleanly')
+
+      // ✅ Set timeout for "no-speech" scenarios (15 seconds is browser default)
+      timeoutIdRef.current = setTimeout(() => {
+        if (isListening && recognitionRef.current) {
+          console.warn('⏱️ Timeout: No speech detected after 15 seconds, stopping')
+          recognitionRef.current.abort()
+        }
+      }, 15000)
+    } catch (err) {
+      console.error('❌ Error starting recognition:', err)
+      setIsListening(false)
+      setMicStatus(`Failed to start: ${err.message}`)
       
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript
-      }
-
-      // Show interim results
-      if (transcript) {
-        setMicStatus(`Heard: "${transcript}"`)
-      }
-
-      // If final result
-      if (event.results[event.results.length - 1].isFinal) {
-        setIsListening(false)
-        
-        if (transcript.trim()) {
-          // Send actual transcript to backend
-          console.log('✅ Final transcript:', transcript)
-          setMicStatus('Processing...')
-          sendMessage(transcript.trim())
-        } else {
-          console.log('⚠️ Empty transcript, ready for next input')
-          setMicStatus('')
+      // ✅ Try to abort and cleanup on error
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.abort()
+        } catch (e) {
+          // Ignore abort errors
         }
       }
-    }
-
-    recognition.onerror = (event) => {
-      console.error('❌ Speech recognition error:', event.error)
-      setIsListening(false)
-      setMicStatus(`Error: ${event.error}`)
-      setTimeout(() => setMicStatus(''), 2000)
-    }
-
-    recognition.onend = () => {
-      console.log('🎤 Listening ended')
-      setIsListening(false)
-    }
-
-    // Start listening
-    try {
-      recognition.start()
-    } catch (err) {
-      console.error('Error starting recognition:', err)
-      setIsListening(false)
+      
+      // Clear timeout
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current)
+        timeoutIdRef.current = null
+      }
     }
   }
 

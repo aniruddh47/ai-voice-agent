@@ -13,7 +13,8 @@ from backend.utils import (
     SemanticCache,
     EmbeddingService,
     SemanticRetriever,
-    load_and_chunk_knowledge
+    load_and_chunk_knowledge,
+    ChatHistoryManager
 )
 
 load_dotenv()
@@ -53,11 +54,12 @@ else:
 embeddings_service = None
 retriever = None
 cache = None
+chat_history_manager = None
 
 
 def init_services():
     """Initialize RAG and embedding services"""
-    global embeddings_service, retriever, cache
+    global embeddings_service, retriever, cache, chat_history_manager
     
     if embeddings_service is not None:
         return  # Already initialized
@@ -74,6 +76,10 @@ def init_services():
         retriever.build(chunks, chunk_embeddings)
         
         cache = SemanticCache(cache_path=CACHE_PATH, threshold=CACHE_THRESHOLD, debug=DEBUG)
+        
+        # Initialize chat history manager
+        chat_history_manager = ChatHistoryManager()
+        
         print("✅ RAG services ready")
     except Exception as e:
         print(f"⚠️ Service initialization failed: {e}")
@@ -511,55 +517,88 @@ def chat():
             return jsonify({'error': 'Missing message field'}), 400
         
         user_message = data['message'].strip()
+        session_id = data.get('session_id')  # Optional session tracking
+        
         if not user_message:
             return jsonify({'error': 'Empty message'}), 400
 
         # For simple greetings/small-talk, avoid RAG/LLM and answer directly.
         rule_response = build_rule_based_response(user_message)
         if rule_response:
-            return jsonify({
+            response_data = {
                 'response': rule_response,
                 'source': 'rules',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', rule_response, 
+                                                metadata={'source': 'rules'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
 
         # If user query is not admission-related, guide them clearly instead of random KB snippets.
         if not is_admission_intent_query(user_message):
-            return jsonify({
-                'response': (
-                    "I can help with SGU admission-related questions only. "
-                    "Please ask about admission process, fees, eligibility, placements, hostel, scholarships, or documents."
-                ),
+            fallback_msg = (
+                "I can help with SGU admission-related questions only. "
+                "Please ask about admission process, fees, eligibility, placements, hostel, scholarships, or documents."
+            )
+            response_data = {
+                'response': fallback_msg,
                 'source': 'rules',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', fallback_msg, 
+                                                metadata={'source': 'rules'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
 
         # Prefer deterministic branch details for aeronautical queries.
         branch_response = build_targeted_branch_response(user_message)
         if branch_response:
-            return jsonify({
+            response_data = {
                 'response': branch_response,
                 'source': 'branch_context',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', branch_response, 
+                                                metadata={'source': 'branch_context'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
 
         # Deterministic response for department/program catalog questions.
         catalog_response = build_catalog_response(user_message)
         if catalog_response:
-            return jsonify({
+            response_data = {
                 'response': catalog_response,
                 'source': 'catalog',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', catalog_response, 
+                                                metadata={'source': 'catalog'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
         
         # Check cache first
         cached_response = get_cached_response(user_message)
         if cached_response:
-            return jsonify({
+            response_data = {
                 'response': cached_response,
                 'source': 'cache',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', cached_response, 
+                                                metadata={'source': 'cache'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
         
         # Get RAG context
         context = get_rag_context(user_message)
@@ -571,11 +610,17 @@ def chat():
         if not LLM_ENABLED or client is None:
             ai_response = build_rag_fallback_response(user_message, context, "LLM disabled")
             cache_response(user_message, ai_response)
-            return jsonify({
+            response_data = {
                 'response': ai_response,
                 'source': 'rag_fallback',
                 'message': user_message
-            })
+            }
+            if session_id and chat_history_manager:
+                chat_history_manager.add_message(session_id, 'user', user_message)
+                chat_history_manager.add_message(session_id, 'assistant', ai_response, 
+                                                metadata={'source': 'rag_fallback'})
+                response_data['session_id'] = session_id
+            return jsonify(response_data)
         
         # Get AI response with retries and optional model fallback.
         response = None
@@ -614,11 +659,20 @@ def chat():
             # Cache this response
             cache_response(user_message, ai_response)
         
-        return jsonify({
+        response_data = {
             'response': ai_response,
             'source': response_source,
             'message': user_message
-        })
+        }
+        
+        # Save to chat history
+        if session_id and chat_history_manager:
+            chat_history_manager.add_message(session_id, 'user', user_message)
+            chat_history_manager.add_message(session_id, 'assistant', ai_response, 
+                                            metadata={'source': response_source})
+            response_data['session_id'] = session_id
+        
+        return jsonify(response_data)
     
     except Exception as e:
         print(f"❌ Error in /api/chat: {e}")
@@ -656,6 +710,110 @@ def models():
     })
 
 
+# Chat History Endpoints
+@app.route('/api/chat-history/new', methods=['POST'])
+def create_session():
+    """Create a new chat session"""
+    try:
+        if not chat_history_manager:
+            return jsonify({'error': 'Chat history service not available'}), 500
+        
+        session_id = chat_history_manager.create_session()
+        return jsonify({
+            'session_id': session_id,
+            'status': 'created'
+        }), 201
+    except Exception as e:
+        print(f"❌ Error creating session: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/chat-history/<session_id>', methods=['GET'])
+def get_chat_history(session_id):
+    """Get all messages from a chat session"""
+    try:
+        if not chat_history_manager:
+            return jsonify({'error': 'Chat history service not available'}), 500
+        
+        messages = chat_history_manager.get_session_messages(session_id)
+        session_info = chat_history_manager.get_session_info(session_id)
+        
+        if session_info is None:
+            return jsonify({'error': 'Session not found'}), 404
+        
+        return jsonify({
+            'session_id': session_id,
+            'messages': messages,
+            'started_at': session_info['started_at'],
+            'updated_at': session_info['updated_at'],
+            'message_count': session_info['message_count']
+        })
+    except Exception as e:
+        print(f"❌ Error retrieving chat history: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/chat-history/sessions', methods=['GET'])
+def list_chat_sessions():
+    """List all chat sessions (most recent first)"""
+    try:
+        if not chat_history_manager:
+            return jsonify({'error': 'Chat history service not available'}), 500
+        
+        limit = request.args.get('limit', 10, type=int)
+        sessions = chat_history_manager.list_sessions(limit=limit)
+        
+        return jsonify({
+            'sessions': sessions,
+            'total': len(sessions)
+        })
+    except Exception as e:
+        print(f"❌ Error listing sessions: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/chat-history/<session_id>', methods=['DELETE'])
+def delete_chat_session(session_id):
+    """Delete an entire chat session"""
+    try:
+        if not chat_history_manager:
+            return jsonify({'error': 'Chat history service not available'}), 500
+        
+        success = chat_history_manager.delete_session(session_id)
+        
+        if not success:
+            return jsonify({'error': 'Session not found'}), 404
+        
+        return jsonify({
+            'session_id': session_id,
+            'status': 'deleted'
+        })
+    except Exception as e:
+        print(f"❌ Error deleting session: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/chat-history/<session_id>/clear', methods=['POST'])
+def clear_chat_session(session_id):
+    """Clear all messages from a session (keep session metadata)"""
+    try:
+        if not chat_history_manager:
+            return jsonify({'error': 'Chat history service not available'}), 500
+        
+        success = chat_history_manager.clear_session(session_id)
+        
+        if not success:
+            return jsonify({'error': 'Session not found'}), 404
+        
+        return jsonify({
+            'session_id': session_id,
+            'status': 'cleared'
+        })
+    except Exception as e:
+        print(f"❌ Error clearing session: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 if __name__ == '__main__':
     print("\n🎓 SGU Admission Counselor - API Server")
     print("=" * 50)
@@ -667,10 +825,16 @@ if __name__ == '__main__':
     print("📡 API running at http://localhost:5000")
     print("🔌 CORS enabled for React frontend at http://localhost:3000")
     print("\nAPI Endpoints:")
-    print("  GET  /api/health      - Health check")
-    print("  POST /api/chat        - Send message, get response")
-    print("  GET  /api/init        - Initialize services")
-    print("  GET  /api/models      - Get model info")
+    print("  GET  /api/health                  - Health check")
+    print("  POST /api/chat                    - Send message, get response")
+    print("  GET  /api/init                    - Initialize services")
+    print("  GET  /api/models                  - Get model info")
+    print("\nChat History Endpoints:")
+    print("  POST /api/chat-history/new        - Create new session")
+    print("  GET  /api/chat-history/<id>       - Get session messages")
+    print("  GET  /api/chat-history/sessions   - List all sessions")
+    print("  DELETE /api/chat-history/<id>     - Delete session")
+    print("  POST /api/chat-history/<id>/clear - Clear messages")
     print("\n" + "=" * 50 + "\n")
     
     app.run(host='0.0.0.0', port=5000, debug=False)
